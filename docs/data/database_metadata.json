@@ -1,0 +1,22 @@
+{
+  "database": "oak_island_hub_semantic",
+  "version": "1.0.0",
+  "entities": {
+    "locations": 5,
+    "episodes": 244,
+    "people_canonical": 25,
+    "people_mentions_total": 9430,
+    "people_dedup_ratio": "377:1",
+    "theories_canonical": 16,
+    "theories_mentions_total": 3871,
+    "theories_dedup_ratio": "242:1",
+    "events": 6216,
+    "artifacts": 81,
+    "measurements": 2758,
+    "boreholes": 0
+  },
+  "optimization": {
+    "people_savings_percent": "99.7%",
+    "theories_savings_percent": "99.6%"
+  }
+}

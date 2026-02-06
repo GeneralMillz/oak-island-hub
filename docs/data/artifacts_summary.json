@@ -1,0 +1,731 @@
+[
+  {
+    "id": "s01e04_a001_discovered-a-sixth-stone-with-a",
+    "name": "Discovered a sixth stone with a",
+    "type": "unknown",
+    "location": null,
+    "season": 1,
+    "episode": 4,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s02e01_a001_object-they-found-was-a-17",
+    "name": "Object they found was a 17",
+    "type": "unknown",
+    "location": null,
+    "season": 2,
+    "episode": 1,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s02e01_a002_some-other-coins-we-found-which",
+    "name": "Some other coins we found, which",
+    "type": "unknown",
+    "location": null,
+    "season": 2,
+    "episode": 1,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s02e02_a001_ere-discovered-at-a-rock-outcropping-in",
+    "name": "Ere discovered at a rock outcropping in",
+    "type": "unknown",
+    "location": null,
+    "season": 2,
+    "episode": 2,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s02e03_a001_scovered-an-antique-coin-on-the",
+    "name": "Scovered an antique coin on the",
+    "type": "unknown",
+    "location": null,
+    "season": 2,
+    "episode": 3,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s02e03_a002_iscovered-a-genuine-gold-mine",
+    "name": "Iscovered a genuine gold mine",
+    "type": "unknown",
+    "location": null,
+    "season": 2,
+    "episode": 3,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s02e04_a001_ot-we-found-another-coin-it-could-be",
+    "name": "Ot we found another coin it could be",
+    "type": "unknown",
+    "location": null,
+    "season": 2,
+    "episode": 4,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s02e06_a001_wooden-vault-they-discov",
+    "name": "Wooden vault they discov",
+    "type": "unknown",
+    "location": null,
+    "season": 2,
+    "episode": 6,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s03e05_a001_there-s-a-couple-stones-that-we-found",
+    "name": "There's a couple stones that we found",
+    "type": "unknown",
+    "location": null,
+    "season": 3,
+    "episode": 5,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s03e05_a002_triangle-shaped-rock-they-found-is-a",
+    "name": "Triangle-shaped Rock they found is a",
+    "type": "unknown",
+    "location": null,
+    "season": 3,
+    "episode": 5,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s03e06_a001_wooden-vault-that-was-fi",
+    "name": "Wooden vault that was fi",
+    "type": "unknown",
+    "location": null,
+    "season": 3,
+    "episode": 6,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s03e06_a002_discovered-nolan-s-cross",
+    "name": "Discovered Nolan's cross",
+    "type": "unknown",
+    "location": null,
+    "season": 3,
+    "episode": 6,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s03e09_a001_we-found-the-rock",
+    "name": "We found the rock",
+    "type": "unknown",
+    "location": null,
+    "season": 3,
+    "episode": 9,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s03e11_a001_ppears-the-piece-of-wood-they-found",
+    "name": "Ppears the piece of wood they found",
+    "type": "unknown",
+    "location": null,
+    "season": 3,
+    "episode": 11,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s03e12_a001_wooden-vault-that-was-fi",
+    "name": "Wooden vault that was fi",
+    "type": "unknown",
+    "location": null,
+    "season": 3,
+    "episode": 12,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e03_a001_we-ve-found-pottery-up-there",
+    "name": "We've found pottery up there",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 3,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e03_a002_we-found-a-coin-in-the-swamp",
+    "name": "We found a coin in the swamp",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 3,
+    "confidence": 0.99
+  },
+  {
+    "id": "s04e03_a003_we-found-an-ancient-coin",
+    "name": "We found an ancient coin",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 3,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e03_a004_discovered-a-small-metal-i",
+    "name": "Discovered a small metal</i>",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 3,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e03_a005_wood-recently-recovered",
+    "name": "Wood recently recovered",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 3,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e04_a001_the-stone-that-was-brought-up",
+    "name": "The stone that was brought up",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 4,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e07_a001_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 7,
+    "confidence": 0.9
+  },
+  {
+    "id": "s04e08_a001_metal-objects-being-disco",
+    "name": "Metal objects being disco",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 8,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e09_a001_gold-colored-object-discovered-i",
+    "name": "Gold-colored object discovered</i>",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 9,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e11_a001_they-found-the-gold",
+    "name": "They found the gold",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 11,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e12_a001_gold-deposits-were-disco",
+    "name": "Gold deposits were disco",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 12,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e14_a001_they-found-a-large-stone-slab",
+    "name": "They found a large stone slab",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 14,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s04e14_a002_ysterious-pieces-of-wood-discovered",
+    "name": "Ysterious pieces of wood discovered",
+    "type": "unknown",
+    "location": null,
+    "season": 4,
+    "episode": 14,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e01_a001_so-discovered-a-goldplated",
+    "name": "So discovered a goldplated",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 1,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e01_a002_for-any-artifacts-brought-up",
+    "name": "For any artifacts brought up",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 1,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e01_a003_numerous-artifacts-recovered",
+    "name": "Numerous artifacts recovered",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 1,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e02_a001_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 2,
+    "confidence": 0.9
+  },
+  {
+    "id": "s05e02_a002_the-oldest-coins-we-ve-found",
+    "name": "The oldest coins we've found",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 2,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e03_a001_we-found-a-lot-of-artifacts",
+    "name": "We found a lot of artifacts",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 3,
+    "confidence": 0.99
+  },
+  {
+    "id": "s05e04_a001_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 4,
+    "confidence": 0.9
+  },
+  {
+    "id": "s05e05_a001_the-fact-the-wood-brought-up",
+    "name": "The fact the wood brought up",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 5,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e05_a002_that-we-found-pottery-at-192",
+    "name": "That we found pottery at 192",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 5,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e07_a001_discovered-a-stone-ramp",
+    "name": "Discovered a stone ramp?",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 7,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e10_a001_we-found-pottery-at",
+    "name": "We found pottery at",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 10,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e11_a001_of-pottery-we-found-so-far",
+    "name": "Of pottery we found so far",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 11,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e11_a002_where-we-found-the-cross",
+    "name": "Where we found the cross",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 11,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e11_a003_where-we-found-the-pottery",
+    "name": "Where we found the pottery",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 11,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e16_a001_we-found-one-brooch",
+    "name": "We found one brooch",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 16,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e16_a002_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 16,
+    "confidence": 0.9
+  },
+  {
+    "id": "s05e17_a001_iscovered-traces-of-gold",
+    "name": "Iscovered traces of gold",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 17,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e17_a002_discovered-several-objects",
+    "name": "Discovered several objects",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 17,
+    "confidence": 0.99
+  },
+  {
+    "id": "s05e18_a001_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 18,
+    "confidence": 0.9
+  },
+  {
+    "id": "s05e18_a002_iscovered-a-curious-object",
+    "name": "Iscovered a curious object",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 18,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s05e18_a003_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 5,
+    "episode": 18,
+    "confidence": 0.9
+  },
+  {
+    "id": "s06e01_a001_discovered-a-brooch",
+    "name": "Discovered a brooch",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 1,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e01_a002_we-recovered-the-cross",
+    "name": "We recovered the cross",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 1,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e01_a003_we-found-this-cross",
+    "name": "We found this cross",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 1,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e02_a001_if-the-brooch-discovered",
+    "name": "If the brooch discovered",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 2,
+    "confidence": 0.99
+  },
+  {
+    "id": "s06e03_a001_and-they-brought-up-wood",
+    "name": "And they brought up wood",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 3,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e04_a001_discovered-during-the-1970s",
+    "name": "Discovered during the 1970s",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 4,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e07_a001_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 7,
+    "confidence": 0.9
+  },
+  {
+    "id": "s06e08_a001_that-the-wood-they-found-i-fon",
+    "name": "That the wood they found</i></fon",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 8,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e09_a001_uncovered-a-large-wooden-beam",
+    "name": "Uncovered a large wooden beam",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 9,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e11_a001_scovered-a-medieval-cross-i",
+    "name": "Scovered a medieval cross</i>",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 11,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e11_a002_i-the-stone-that-we-found-but",
+    "name": "<i>the stone that we found, but",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 11,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e12_a001_scovered-an-unusual-stone-slab-while",
+    "name": "Scovered an unusual stone slab while",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 12,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e12_a002_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 12,
+    "confidence": 0.9
+  },
+  {
+    "id": "s06e13_a001_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 13,
+    "confidence": 0.9
+  },
+  {
+    "id": "s06e13_a002_o-far-they-found-a-stone-slab-font-font",
+    "name": "O far, they found a stone slab</font></font>",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 13,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e13_a003_drains-of-legendary-stone-box-font-font",
+    "name": "Drains of legendary stone box</font></font>",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 13,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e13_a004_unspecified-artifact",
+    "name": "Unspecified artifact",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 13,
+    "confidence": 0.9
+  },
+  {
+    "id": "s06e18_a001_we-found-so-much-wood",
+    "name": "We found so much wood",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 18,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e18_a002_to-the-lead-cross-discovered",
+    "name": "To the lead cross discovered",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 18,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e18_a003_to-the-lead-cross-discovered",
+    "name": "To the lead cross discovered",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 18,
+    "confidence": 0.99
+  },
+  {
+    "id": "s06e18_a004_d-one-long-strip-of-lead",
+    "name": "D one long strip of lead",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 18,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e20_a001_discovered-stone-well",
+    "name": "Discovered stone well",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 20,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e21_a001_we-found-a-rock",
+    "name": "We found a rock",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 21,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s06e22_a001_well-we-found-them-coins",
+    "name": "Well, we found them coins",
+    "type": "unknown",
+    "location": null,
+    "season": 6,
+    "episode": 22,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s07e01_a001_and-undiscovered-artifacts",
+    "name": "And undiscovered artifacts",
+    "type": "unknown",
+    "location": null,
+    "season": 7,
+    "episode": 1,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s07e04_a001_at-we-ve-discovered-wood",
+    "name": "At we've discovered wood",
+    "type": "unknown",
+    "location": null,
+    "season": 7,
+    "episode": 4,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s07e04_a002_we-found-that-brooch",
+    "name": "We found that brooch",
+    "type": "unknown",
+    "location": null,
+    "season": 7,
+    "episode": 4,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s07e04_a003_found-this-piece-of-wood",
+    "name": "Found this piece of wood",
+    "type": "unknown",
+    "location": null,
+    "season": 7,
+    "episode": 4,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s07e06_a001_iscovered-a-similar-object",
+    "name": "Iscovered a similar object",
+    "type": "unknown",
+    "location": null,
+    "season": 7,
+    "episode": 6,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s07e10_a001_lead-objects-discovered",
+    "name": "Lead objects discovered",
+    "type": "unknown",
+    "location": null,
+    "season": 7,
+    "episode": 10,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s07e13_a001_where-we-found-the-wood",
+    "name": "Where we found the wood",
+    "type": "unknown",
+    "location": null,
+    "season": 7,
+    "episode": 13,
+    "confidence": 0.9500000000000001
+  },
+  {
+    "id": "s07e14_a001_ound-a-big-chunk-of-iron",
+    "name": "Ound a big chunk of iron",
+    "type": "unknown",
+    "location": null,
+    "season": 7,
+    "episode": 14,
+    "confidence": 0.9500000000000001
+  }
+]

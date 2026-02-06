@@ -1,0 +1,37 @@
+[
+  {
+    "id": "garden_shaft",
+    "name": "Garden Shaft",
+    "type": "shaft",
+    "lat": 44.52363,
+    "lng": -64.30021
+  },
+  {
+    "id": "money_pit",
+    "name": "Money Pit",
+    "type": "excavation",
+    "lat": 44.52355,
+    "lng": -64.30002
+  },
+  {
+    "id": "nolans_cross",
+    "name": "Nolan's Cross",
+    "type": "landmark",
+    "lat": 44.5248,
+    "lng": -64.3021
+  },
+  {
+    "id": "smiths_cove",
+    "name": "Smith's Cove",
+    "type": "shore",
+    "lat": 44.5239,
+    "lng": -64.2989
+  },
+  {
+    "id": "the_swamp",
+    "name": "The Swamp",
+    "type": "swamp",
+    "lat": 44.5241,
+    "lng": -64.2999
+  }
+]

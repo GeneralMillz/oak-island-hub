@@ -1,0 +1,130 @@
+[
+  {
+    "id": "bacon",
+    "name": "Bacon",
+    "type": "other",
+    "evidence_count": 0,
+    "first_season": 0,
+    "last_season": 6
+  },
+  {
+    "id": "british",
+    "name": "British",
+    "type": "historical",
+    "evidence_count": 0,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "french",
+    "name": "French",
+    "type": "historical",
+    "evidence_count": 0,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "holy_grail",
+    "name": "Holy Grail",
+    "type": "other",
+    "evidence_count": 0,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "mi'kmaq",
+    "name": "Mi'Kmaq",
+    "type": "other",
+    "evidence_count": 0,
+    "first_season": 2,
+    "last_season": 6
+  },
+  {
+    "id": "nolan_cross",
+    "name": "Nolan Cross",
+    "type": "historical",
+    "evidence_count": 0,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "pirates",
+    "name": "Pirates",
+    "type": "historical",
+    "evidence_count": 0,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "portuguese",
+    "name": "Portuguese",
+    "type": "other",
+    "evidence_count": 0,
+    "first_season": 0,
+    "last_season": 6
+  },
+  {
+    "id": "roman",
+    "name": "Roman",
+    "type": "historical",
+    "evidence_count": 0,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "shakespeare",
+    "name": "Shakespeare",
+    "type": "other",
+    "evidence_count": 0,
+    "first_season": 1,
+    "last_season": 6
+  },
+  {
+    "id": "spanish",
+    "name": "Spanish",
+    "type": "historical",
+    "evidence_count": 0,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "templar",
+    "name": "Templar",
+    "type": "religious",
+    "evidence_count": 0,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "templar_cross",
+    "name": "Templar Cross",
+    "type": "religious",
+    "evidence_count": 0,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "treasure",
+    "name": "Treasure",
+    "type": "treasure",
+    "evidence_count": 0,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "viking",
+    "name": "Viking",
+    "type": "other",
+    "evidence_count": 0,
+    "first_season": 5,
+    "last_season": 6
+  },
+  {
+    "id": "zena_map",
+    "name": "Zena Map",
+    "type": "historical",
+    "evidence_count": 0,
+    "first_season": 4,
+    "last_season": 7
+  }
+]

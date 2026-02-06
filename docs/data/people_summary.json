@@ -1,0 +1,202 @@
+[
+  {
+    "id": "rick_lagina",
+    "name": "Rick Lagina",
+    "role": null,
+    "mentions": 2655,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "marty_lagina",
+    "name": "Marty Lagina",
+    "role": null,
+    "mentions": 1649,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "gary_drayton",
+    "name": "Gary Drayton",
+    "role": null,
+    "mentions": 857,
+    "first_season": 2,
+    "last_season": 7
+  },
+  {
+    "id": "craig_tester",
+    "name": "Craig Tester",
+    "role": null,
+    "mentions": 668,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "jack_begley",
+    "name": "Jack Begley",
+    "role": null,
+    "mentions": 635,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "charles_barkhouse",
+    "name": "Charles Barkhouse",
+    "role": null,
+    "mentions": 475,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "laird_niven",
+    "name": "Laird Niven",
+    "role": null,
+    "mentions": 333,
+    "first_season": 3,
+    "last_season": 7
+  },
+  {
+    "id": "doug_crowell",
+    "name": "Doug Crowell",
+    "role": null,
+    "mentions": 330,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "alex_lagina",
+    "name": "Alex Lagina",
+    "role": null,
+    "mentions": 309,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "nolan",
+    "name": "Nolan",
+    "role": null,
+    "mentions": 246,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "drayton",
+    "name": "Drayton",
+    "role": null,
+    "mentions": 182,
+    "first_season": 2,
+    "last_season": 7
+  },
+  {
+    "id": "dan_blankenship",
+    "name": "Dan Blankenship",
+    "role": null,
+    "mentions": 159,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "billy",
+    "name": "Billy",
+    "role": null,
+    "mentions": 147,
+    "first_season": 5,
+    "last_season": 7
+  },
+  {
+    "id": "david",
+    "name": "David",
+    "role": null,
+    "mentions": 145,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "paul",
+    "name": "Paul",
+    "role": null,
+    "mentions": 129,
+    "first_season": 2,
+    "last_season": 7
+  },
+  {
+    "id": "zena",
+    "name": "Zena",
+    "role": null,
+    "mentions": 116,
+    "first_season": 4,
+    "last_season": 7
+  },
+  {
+    "id": "peter",
+    "name": "Peter",
+    "role": null,
+    "mentions": 115,
+    "first_season": 0,
+    "last_season": 7
+  },
+  {
+    "id": "samuel_ball",
+    "name": "Samuel Ball",
+    "role": null,
+    "mentions": 74,
+    "first_season": 3,
+    "last_season": 6
+  },
+  {
+    "id": "scott",
+    "name": "Scott",
+    "role": null,
+    "mentions": 50,
+    "first_season": 1,
+    "last_season": 7
+  },
+  {
+    "id": "mike_huntley",
+    "name": "Mike Huntley",
+    "role": null,
+    "mentions": 42,
+    "first_season": 4,
+    "last_season": 5
+  },
+  {
+    "id": "terry_matheson",
+    "name": "Terry Matheson",
+    "role": null,
+    "mentions": 34,
+    "first_season": 5,
+    "last_season": 7
+  },
+  {
+    "id": "carmen_legge",
+    "name": "Carmen Legge",
+    "role": null,
+    "mentions": 28,
+    "first_season": 6,
+    "last_season": 7
+  },
+  {
+    "id": "steve_guptill",
+    "name": "Steve Guptill",
+    "role": null,
+    "mentions": 27,
+    "first_season": 6,
+    "last_season": 7
+  },
+  {
+    "id": "tom_nolan",
+    "name": "Tom Nolan",
+    "role": null,
+    "mentions": 20,
+    "first_season": 4,
+    "last_season": 7
+  },
+  {
+    "id": "emma",
+    "name": "Emma",
+    "role": null,
+    "mentions": 5,
+    "first_season": 0,
+    "last_season": 4
+  }
+]

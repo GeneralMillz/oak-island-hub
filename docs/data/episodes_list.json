@@ -1,0 +1,1492 @@
+{
+  "season_1": [
+    {
+      "episode": 1,
+      "title": "What Lies Below",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "The Mystery of Smith's Cove",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "Outdoors: Voices from the Grave",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "The Secret of Solomon's Temple",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "The Find",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_2": [
+    {
+      "episode": 1,
+      "title": "Once In, Forever In",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Return to the Money Pit",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "The Eight-Pointed Star",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "The Breakthrough",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "The 90-Foot Stone",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "Seven Must Dye",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "The Trail of the Templars",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "X Marks the Spot",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "A Dangerous Dive",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "The Big Reveal",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_3": [
+    {
+      "episode": 1,
+      "title": "The Hole Truth",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Pipe Down",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "Outdoors: Time to Dig",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "The Overton Stone",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "Disappearing Act",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "Carved in Stone",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "The Missing Peace",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "Phantoms of the Deep",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "Columbus Day",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "Silence in the Dark",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "Sword Play",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "Voices from Below",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "Secrets and Revelations",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_4": [
+    {
+      "episode": 1,
+      "title": "Going for Broke",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Always Forward",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "Swamp Things",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "No Stone Unturned",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "Bullseye",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "Circles in Wood",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "All That Glitters",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "The Mystery of Samuel Ball",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "Echoes from the Deep",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "About Face",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "Presidential Secrets",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "Hyde Park and Go Seek",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "One of Seven",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 14,
+      "title": "Of Sticks and Stones",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 15,
+      "title": "Blood Is Thicker",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 16,
+      "title": "A Look Ahead",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_5": [
+    {
+      "episode": 1,
+      "title": "Forever Family",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Dead Man's Chest",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "Obstruction",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "Close Call",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "Bone Dry",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "Remains of the Day",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "The Lot Thickens",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "Dan's Breakthrough",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "The French Connection",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "The Signs of a Cross",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "Moving Targets",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "A Key to the Mystery",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "Unhinged",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 14,
+      "title": "The Templar Connection",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 15,
+      "title": "Steel Trapped",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 16,
+      "title": "Seeing Red",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 17,
+      "title": "A Family Album",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 18,
+      "title": "Amazing Discoveries",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_6": [
+    {
+      "episode": 1,
+      "title": "Rick's Big Bang Theory",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Gold Rush",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "Depth Perception",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "A Legacy Revealed",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "Homecoming",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "Precious Metal",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "Rock Solid",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "Unearthed",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "As Above, So Below",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "Fingers Made of Stone",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "Wharfs and All",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "Slipway When Wet",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "The Paper Chase",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 14,
+      "title": "Voyage to the Bottom of the Cenote",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 15,
+      "title": "Dye Harder",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 16,
+      "title": "Detour",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 17,
+      "title": "Clue or False?",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 18,
+      "title": "Heavy Metal",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 19,
+      "title": "Striking Distance",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 20,
+      "title": "Short Days and Tall Knights",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 21,
+      "title": "Seismic Matters",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 22,
+      "title": "Lost and Founding",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_7": [
+    {
+      "episode": 1,
+      "title": "The Torch Is Passed",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Core Values",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "The Eye of the Swamp",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "The Lucky Thirteen",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "Tunnel Visions",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "Closing In",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "Things That Go Bump-Out",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "Triptych",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "An Eye for an Eye",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "Gary Strikes Again",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "The Eye of the Storm",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "Fortified",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "Bromancing the Stones",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 14,
+      "title": "Burnt Offering",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 15,
+      "title": "Surely Templar",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 16,
+      "title": "Water Logged",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 17,
+      "title": "To Boulderly Go",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 18,
+      "title": "The Turning Point",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 19,
+      "title": "Lords of the Ring",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 20,
+      "title": "Springing the Trap",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 21,
+      "title": "A Leaf of Faith",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 22,
+      "title": "Marks X the Spot",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 23,
+      "title": "Timeline",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_8": [
+    {
+      "episode": 1,
+      "title": "Remote Control",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "The Boys Are Back",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "If the Ox Shoes Fit",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "Alignment",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "The Master Plan",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "Seaing is Believing",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "Mounding Evidence",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "High on the Bog",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "Rock, Paper, Serpents",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "Connecting the Lots",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "Rocky Road",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "Digging Their Heels In",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "The Fellowship Of The Ringbolt",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 14,
+      "title": "A Bend in the Road",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 15,
+      "title": "Cask and You Shall Receive",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 16,
+      "title": "Leather Bound",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 17,
+      "title": "Staking Their Claim",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 18,
+      "title": "Cannon Fodder",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 19,
+      "title": "A Loose Cannonball",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 20,
+      "title": "Fire in the Hole",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 21,
+      "title": "Off the Railing",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 22,
+      "title": "Be There or T-Square",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 23,
+      "title": "Old Wharfs Tale",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 24,
+      "title": "Silver Lining",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 25,
+      "title": "The Silver Spooner",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_9": [
+    {
+      "episode": 1,
+      "title": "Going For Gold",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "The Gold Metal",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "Stone Roadblock",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "Spoils Alert",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "Hatching The Plan",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "The Root Cause",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "It All Adze Up",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "Deeper Digs, Bigger Stakes",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "The Unusual Suspects",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "Chamber of Secrets",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "A Boatload of Clues",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "The Silver Liner",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "Go Big Or Go Home",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 14,
+      "title": "Premier of the Dig",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 15,
+      "title": "Eyes and Boot in the Ground",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 16,
+      "title": "Gold Diggers",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 17,
+      "title": "Blast From The Past",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 18,
+      "title": "Playing the Dunfield",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 19,
+      "title": "Shoal Me the Money",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 20,
+      "title": "The Hedden Truth",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 21,
+      "title": "A Lot of Secrets",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 22,
+      "title": "Yes We Can",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 23,
+      "title": "Follow the Cobblestone Road",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 24,
+      "title": "On the Road",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 25,
+      "title": "Treasure Island",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_10": [
+    {
+      "episode": 1,
+      "title": "On Their Marks",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Across the Pond",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "Bubbling Over",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "Wharf and Pieces",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "Duc it Out",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "Over the Muon",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "Norsing Around",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "A Lot to Be Desired",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "A Damming Clue",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "The Blob",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "Oh, Well!",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "Beware the Blob",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "All's Well",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 14,
+      "title": "Getting the Shaft",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 15,
+      "title": "Wood You Believe It?",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 16,
+      "title": "Striking Gold",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 17,
+      "title": "A Well of Secrets",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 18,
+      "title": "A Quadrilateral Move",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 19,
+      "title": "Ramping Up",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 20,
+      "title": "A Barrel full of Clues",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 21,
+      "title": "Roman Around",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 22,
+      "title": "Starry Knights",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 23,
+      "title": "The Italian Job",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 24,
+      "title": "Down the Hatch",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 25,
+      "title": "And the Hits Keep Coming",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_11": [
+    {
+      "episode": 1,
+      "title": "On the Money",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Heavy Lifting",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "Taking Their Shot",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "Shear Mystery",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "Muon the Horizon",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "The Grand Opening",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "The Great Flood",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "A Void At All Costs",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "Filling Cavities",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "Chain Reaction",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "Plugged Up",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "Digging Back In",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "Tea Time",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 14,
+      "title": "Rick And Mortar",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 15,
+      "title": "On Target",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 16,
+      "title": "Dark and Stormy",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 17,
+      "title": "Piling On",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 18,
+      "title": "May The Norse Be With You",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 19,
+      "title": "Hi Ho Silver",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 20,
+      "title": "Wet and Wild",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 21,
+      "title": "Straight as an Arrow",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 22,
+      "title": "Abbey Road",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 23,
+      "title": "Cone E Island",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 24,
+      "title": "Hairy Situation",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 25,
+      "title": "Worth The Weight",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_12": [
+    {
+      "episode": 1,
+      "title": "The New Digs",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Whistle While You Work",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "The Saga Continues",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "Concrete Evidence",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "A Flood of Secrets",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "Hide And Seek",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "It's All Your Vault",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "A Bead On The Target",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "Brick By Brick",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "Graves Concerns",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "Best Caisson Scenario",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "Mapping It Out",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 13,
+      "title": "Caissons Ho!",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 14,
+      "title": "Sinking In",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 15,
+      "title": "Channeling the Solution",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 16,
+      "title": "Open Sesame",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 17,
+      "title": "Boots on the Ground",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 18,
+      "title": "If The Shoe Phips",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 19,
+      "title": "Barreling Forward",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 20,
+      "title": "Just Bead It",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 21,
+      "title": "The Solution Solution",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 22,
+      "title": "Knight After Knight",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 23,
+      "title": "Family Ties",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 24,
+      "title": "Into the Void",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 25,
+      "title": "Uplifting Discoveries",
+      "air_date": null,
+      "summary": null
+    }
+  ],
+  "season_13": [
+    {
+      "episode": 1,
+      "title": "The Comeback",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 2,
+      "title": "Billion Dollar Baby",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 3,
+      "title": "Medieval Intentions",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 4,
+      "title": "The Smoking Gun",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 5,
+      "title": "Keep On Rockin'",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 6,
+      "title": "The Heat Is On",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 7,
+      "title": "Walk the Line",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 8,
+      "title": "Into the Fold",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 9,
+      "title": "So Close, Yet Sonar",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 10,
+      "title": "Boulder and Wiser",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 11,
+      "title": "A Knight's Journey",
+      "air_date": null,
+      "summary": null
+    },
+    {
+      "episode": 12,
+      "title": "A Fort Knight",
+      "air_date": null,
+      "summary": null
+    }
+  ]
+}
