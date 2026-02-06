@@ -12,8 +12,8 @@ env/
 # Large data folders
 data_raw/
 data_extracted/
-app_public/tiles/
-app_public/data/subtitles/
+docs/tiles/
+docs/data/subtitles/
 
 # External tile and asset storage (all platforms)
 /mnt/storage/
@@ -22,7 +22,7 @@ D:\oak-island-hub\
 
 # Backups and dumps
 backups/
-app_public/full_dump.txt
+docs/full_dump.txt
 *.backup
 *.bak.tif
 
