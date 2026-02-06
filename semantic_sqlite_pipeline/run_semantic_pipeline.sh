@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # ============================================================================
 # run_semantic_pipeline.sh
 # ============================================================================
@@ -252,10 +252,14 @@ main() {
         return 1
     fi
     
-    # Phase 4: Verify
-    verify_args=(--db "$DB_PATH")
-    if ! run_phase 4 "Data Quality Verification" "etl_verify_semantic.py" "${verify_args[@]}"; then
-        return 1
+    # Phase 4: Verify (conditional based on SKIP_VERIFICATION environment variable)
+    if [ -z "${SKIP_VERIFICATION:-}" ]; then
+        verify_args=(--db "$DB_PATH")
+        if ! run_phase 4 "Data Quality Verification" "etl_verify_semantic.py" "${verify_args[@]}"; then
+            return 1
+        fi
+    else
+        log_info "Skipping Phase 4: Data Quality Verification (SKIP_VERIFICATION=1)"
     fi
     
     # Phase 5: Export
