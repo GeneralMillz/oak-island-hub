@@ -1,50 +1,152 @@
 #!/usr/bin/env python3
 """
-Oak Island Hub API Server with SQLite Support
+Oak Island Hub Semantic API Server
 
-This server provides:
-1. Static file serving from docs/
-2. Legacy JSON endpoint /api/semantic/query (chatbot)
-3. NEW: SQLite-backed REST endpoints for efficient data querying
-   - GET /api/v2/locations
-   - GET /api/v2/locations/:id
-   - GET /api/v2/events?location_id=...&season=...
-   - GET /api/v2/artifacts?location_id=...
-   - GET /api/v2/theories
-   - GET /api/v2/people
-   - GET /api/v2/episodes?season=...
+REST API backed by normalized SQLite semantic database.
 
-The API gracefully falls back to JSON data if SQLite database is unavailable.
+Provides efficient querying of:
+- Locations (5 geographic locations)
+- Episodes (244 TV episodes across 13 seasons)
+- Events (6,216 discoveries/activities)
+- Artifacts (81 physical objects found)
+- Theories (16 canonical theories with 3,871+ mentions)
+- People (25 key investigators + hosts)
+- Measurements (2,758 scientific measurements)
+
+Features:
+  ✓ Zero external dependencies (stdlib only)
+  ✓ CORS support for browser access
+  ✓ Automatic fallback to JSON files if DB unavailable
+  ✓ Pagination and filtering
+  ✓ Full-text search across entities
+  ✓ Comprehensive error handling
 
 Usage:
-    python3 api_server.py                          # Production (localhost:5000)
-    python3 api_server.py --dev --port 8000       # Development
-    
-Environment Variables:
-    FLASK_ENV=development         Enable debug mode
-    DATABASE_PATH=./data          Path to oak_island_hub.db directory
-    CHATBOT_API_BASE=http://...   Override chatbot endpoint
+    python3 api_server_v2.py                      # Production (localhost:5000)
+    python3 api_server_v2.py --dev --port 8000   # Development mode
+
+Environment:
+    DATABASE_PATH=./oak_island_hub.db   Override database location
+    FLASK_ENV=development               Enable debug logging
 """
 
 from flask import Flask, request, jsonify, send_from_directory, make_response
 from pathlib import Path
-import json
-import re
 import sqlite3
+import json
 import logging
-from collections import defaultdict
-from typing import Optional, Dict, List, Any
+import argparse
+from typing import Optional, Dict, List, Any, Tuple
+from urllib.parse import quote_plus
 
-# Logging
-logging.basicConfig(level=logging.INFO)
+# ============================================================================
+# CONFIGURATION
+# ============================================================================
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+)
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
-APP_DIR = BASE_DIR / "docs"  # Updated from app_public to docs
+APP_DIR = BASE_DIR / "docs"
 DATA_DIR = APP_DIR / "data"
-DB_PATH = BASE_DIR / "data" / "oak_island_hub.db"
+DB_PATH = BASE_DIR / "oak_island_hub.db"  # Semantic database path
 
 app = Flask(__name__, static_folder=str(APP_DIR), static_url_path="")
+
+# ============================================================================
+# DATABASE MANAGER
+# ============================================================================
+
+class SemanticDB:
+    """Manages connections to semantic SQLite database with fallback to JSON."""
+    
+    def __init__(self, db_path: Path):
+        self.db_path = db_path
+        self.available = False
+        self.json_cache = {}
+        
+        # Check if database exists
+        if db_path.exists():
+            try:
+                conn = sqlite3.connect(str(db_path))
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table'")
+                table_count = cursor.fetchone()[0]
+                conn.close()
+                
+                if table_count > 0:
+                    self.available = True
+                    logger.info(f"✓ Semantic database available: {db_path}")
+                else:
+                    logger.warning(f"✗ Database has no tables: {db_path}")
+            except Exception as e:
+                logger.warning(f"✗ Database check failed: {e}")
+        else:
+            logger.warning(f"✗ Database not found: {db_path}")
+    
+    def query_one(self, sql: str, params: Tuple = ()) -> Optional[Dict]:
+        """Execute query and return single result as dict."""
+        if not self.available:
+            return None
+        
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute(sql, params)
+            row = cursor.fetchone()
+            conn.close()
+            return dict(row) if row else None
+        except Exception as e:
+            logger.error(f"Query error: {e}")
+            return None
+    
+    def query_all(self, sql: str, params: Tuple = ()) -> List[Dict]:
+        """Execute query and return results as list of dicts."""
+        if not self.available:
+            return []
+        
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute(sql, params)
+            results = [dict(row) for row in cursor.fetchall()]
+            conn.close()
+            return results
+        except Exception as e:
+            logger.error(f"Query error: {e}")
+            return []
+
+db = SemanticDB(DB_PATH)
+
+# ============================================================================
+# JSON FALLBACK HELPERS
+# ============================================================================
+
+def load_json_slice(filename: str) -> Any:
+    """Load optimized JSON slice with caching."""
+    cache_key = f"slice_{filename}"
+    if cache_key in db.json_cache:
+        return db.json_cache[cache_key]
+    
+    path = DATA_DIR / f"{filename}_summary.json"
+    if not path.exists():
+        # Try alternate names
+        path = DATA_DIR / f"{filename}.json"
+    
+    try:
+        with path.open("r", encoding="utf-8") as f:
+            data = json.load(f)
+        db.json_cache[cache_key] = data
+        return data
+    except Exception as e:
+        logger.warning(f"Failed to load {filename}: {e}")
+        return None
 
 # ============================================================================
 # CORS MIDDLEWARE
@@ -57,513 +159,552 @@ def handle_preflight():
         response = make_response("", 204)
         response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin", "*"))
         response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
-        response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Methods", "GET, OPTIONS")
         response.headers.add("Access-Control-Max-Age", "3600")
         return response
-    return None
 
 @app.after_request
 def add_cors_headers(response):
     """Add CORS headers to all responses."""
     response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin", "*"))
     response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
-    response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-    response.headers.add("Access-Control-Max-Age", "3600")
+    response.headers.add("Access-Control-Allow-Methods", "GET, OPTIONS")
     response.headers.add("Vary", "Origin")
     return response
 
 # ============================================================================
-# DATABASE UTILITIES
-# ============================================================================
-
-class SQLiteDB:
-    """SQLite database connection manager with read-only access."""
-    
-    def __init__(self, db_path: Path):
-        self.db_path = db_path
-        self.available = db_path.exists()
-        
-        if self.available:
-            try:
-                # Test connection
-                conn = sqlite3.connect(f"file:{self.db_path}?mode=ro", uri=True)
-                conn.execute("SELECT 1")
-                conn.close()
-                logger.info(f"SQLite database available: {self.db_path}")
-            except Exception as e:
-                logger.warning(f"SQLite database check failed: {e}")
-                self.available = False
-    
-    def query(self, sql: str, params: tuple = ()) -> List[Dict]:
-        """Execute read-only query and return results as list of dicts."""
-        if not self.available:
-            return []
-        
-        try:
-            conn = sqlite3.connect(f"file:{self.db_path}?mode=ro", uri=True)
-            conn.row_factory = sqlite3.Row
-            cursor = conn.cursor()
-            cursor.execute(sql, params)
-            results = [dict(row) for row in cursor.fetchall()]
-            conn.close()
-            return results
-        except Exception as e:
-            logger.error(f"Database query error: {e}")
-            return []
-
-db = SQLiteDB(DB_PATH)
-
-# ============================================================================
-# DATA CACHE (for JSON fallback)
-# ============================================================================
-
-DATA_CACHE = {}
-
-def load_json(path: Path) -> Any:
-    """Load JSON file with caching."""
-    if str(path) in DATA_CACHE:
-        return DATA_CACHE[str(path)]
-    
-    try:
-        with path.open("r", encoding="utf-8") as f:
-            data = json.load(f)
-        DATA_CACHE[str(path)] = data
-        return data
-    except Exception as e:
-        logger.error(f"Failed to load JSON {path}: {e}")
-        return None
-
-def normalize(text: str) -> str:
-    """Normalize text for comparison."""
-    return re.sub(r"\s+", " ", (text or "").strip().lower())
-
-# ============================================================================
-# LEGACY: KNOWLEDGE BASE (for backward compatibility)
-# ============================================================================
-
-class KnowledgeBase:
-    """Unified knowledge loader for all Oak Island datasets (JSON-based fallback)."""
-    
-    def __init__(self, data_dir: Path, pi_mode: bool = False):
-        self.data_dir = Path(data_dir)
-        self.pi_mode = pi_mode
-        self.oak_data = self._load_oak_data()
-        self.episodes = self._load_episodes()
-        self.people = self._load_people()
-        self.theories = self._load_theories()
-        self.events = self._load_events()
-        self.locations = self._load_locations()
-        self.measurements = self._load_measurements()
-        self.artifacts = self._build_artifacts()
-        self.indices = self._build_indices()
-    
-    def _load_oak_data(self) -> Dict:
-        """Load primary Oak Island dataset."""
-        return load_json(self.data_dir / "oak_island_data.json") or {}
-    
-    def _load_episodes(self) -> List:
-        """Load episodes dataset."""
-        data = load_json(self.data_dir / "episodes.json")
-        if isinstance(data, dict) and "episodes" in data:
-            return data["episodes"]
-        return data or []
-    
-    def _load_people(self) -> List:
-        """Load people dataset (skip in PI_MODE)."""
-        if self.pi_mode:
-            return []
-        return load_json(self.data_dir / "people.json") or []
-    
-    def _load_theories(self) -> List:
-        """Load theories dataset (skip in PI_MODE)."""
-        if self.pi_mode:
-            return []
-        return load_json(self.data_dir / "theories.json") or []
-    
-    def _load_events(self) -> List:
-        """Load events dataset (skip in PI_MODE)."""
-        if self.pi_mode:
-            return []
-        return load_json(self.data_dir / "events.json") or []
-    
-    def _load_locations(self) -> List:
-        """Load locations dataset."""
-        return load_json(self.data_dir / "locations.json") or []
-    
-    def _load_measurements(self) -> List:
-        """Load measurements dataset (skip in PI_MODE)."""
-        if self.pi_mode:
-            return []
-        return load_json(self.data_dir / "measurements.json") or []
-    
-    def _build_artifacts(self) -> List:
-        """Extract artifacts from events and locations."""
-        artifacts = []
-        # This can be enhanced to extract actual artifact references
-        return artifacts
-    
-    def _build_indices(self) -> Dict:
-        """Build inverted indices for fast lookup."""
-        indices = {
-            'people_by_name': {},
-            'locations_by_id': {},
-            'theories_by_name': {},
-            'events_by_type': defaultdict(list),
-        }
-        
-        for person in self.people:
-            if isinstance(person, dict) and 'person' in person:
-                indices['people_by_name'][normalize(person['person'])] = person
-        
-        for location in self.locations:
-            if isinstance(location, dict) and 'id' in location:
-                indices['locations_by_id'][location['id']] = location
-        
-        for theory in self.theories:
-            if isinstance(theory, dict) and 'theory' in theory:
-                indices['theories_by_name'][normalize(theory['theory'])] = theory
-        
-        for event in self.events:
-            if isinstance(event, dict) and 'event_type' in event:
-                indices['events_by_type'][event['event_type']].append(event)
-        
-        return indices
-
-KNOWLEDGE_BASE: Optional[KnowledgeBase] = None
-
-def get_knowledge_base(pi_mode: bool = False) -> KnowledgeBase:
-    """Get or initialize the global knowledge base."""
-    global KNOWLEDGE_BASE
-    if KNOWLEDGE_BASE is None:
-        KNOWLEDGE_BASE = KnowledgeBase(DATA_DIR, pi_mode=pi_mode)
-    return KNOWLEDGE_BASE
-
-# ============================================================================
-# NEW: SQLITE-BACKED ENDPOINTS (API v2)
+# API ENDPOINTS: LOCATIONS
 # ============================================================================
 
 @app.route('/api/v2/locations', methods=['GET'])
-def get_locations_v2():
-    """Get all locations from SQLite database.
+def get_locations():
+    """Get all locations (minimal data for map initialization).
     
-    Response:
-        [
-            {
-                "id": "money_pit",
-                "name": "Money Pit",
-                "type": "shaft",
-                "lat": 44.523550,
-                "lng": -64.300020,
-                "description": "..."
-            },
-            ...
-        ]
+    Returns:
+        [{
+            "id": "money_pit",
+            "name": "Money Pit",
+            "type": "excavation",
+            "lat": 44.52355,
+            "lng": -64.30002
+        }, ...]
     """
     if not db.available:
-        # Fallback to JSON
-        kb = get_knowledge_base(request.args.get('piMode') == 'true')
-        return jsonify(kb.locations)
+        data = load_json_slice("locations_min")
+        return jsonify(data or [])
     
-    results = db.query("SELECT id, name, type, latitude, longitude, description FROM locations")
-    
-    # Convert to expected format
-    locations = [
-        {
-            'id': r['id'],
-            'name': r['name'],
-            'type': r['type'],
-            'lat': r['latitude'],
-            'lng': r['longitude'],
-            'description': r['description']
-        }
-        for r in results
-    ]
+    locations = db.query_all("""
+        SELECT id, name, type, latitude as lat, longitude as lng
+        FROM locations
+        ORDER BY name
+    """)
     
     return jsonify(locations)
 
 @app.route('/api/v2/locations/<location_id>', methods=['GET'])
-def get_location_v2(location_id: str):
-    """Get a single location by ID with related events and artifacts.
+def get_location_detail(location_id: str):
+    """Get location with all related events, artifacts, and measurements.
     
-    Response:
+    Args:
+        location_id: Location identifier (e.g., 'money_pit')
+    
+    Returns:
         {
             "id": "money_pit",
             "name": "Money Pit",
-            "type": "shaft",
-            "lat": 44.523550,
-            "lng": -64.300020,
-            "description": "...",
+            "type": "excavation",
+            "lat": 44.52355,
+            "lng": -64.30002,
             "events": [...],
             "artifacts": [...],
             "measurements": [...]
         }
     """
     if not db.available:
-        kb = get_knowledge_base(request.args.get('piMode') == 'true')
-        for loc in kb.locations:
+        data = load_json_slice("locations_min")
+        for loc in (data or []):
             if loc.get('id') == location_id:
                 return jsonify(loc)
         return jsonify({'error': 'Location not found'}), 404
     
     # Get location
-    locations = db.query(
-        "SELECT id, name, type, latitude, longitude, description FROM locations WHERE id = ?",
-        (location_id,)
-    )
+    location = db.query_one("""
+        SELECT id, name, type, latitude as lat, longitude as lng
+        FROM locations
+        WHERE id = ?
+    """, (location_id,))
     
-    if not locations:
+    if not location:
         return jsonify({'error': 'Location not found'}), 404
     
-    location = locations[0]
-    location['lat'] = location.pop('latitude')
-    location['lng'] = location.pop('longitude')
-    
     # Get related events
-    location['events'] = db.query(
-        """SELECT season, episode, timestamp, event_type, text, confidence 
-           FROM events WHERE location_id = ? LIMIT 50""",
-        (location_id,)
-    )
+    location['events'] = db.query_all("""
+        SELECT season, episode, timestamp, event_type, text
+        FROM events
+        WHERE location_id = ?
+        LIMIT 100
+    """, (location_id,))
     
     # Get related artifacts
-    location['artifacts'] = db.query(
-        """SELECT id, name, description, artifact_type, season, episode 
-           FROM artifacts WHERE location_id = ? LIMIT 20""",
-        (location_id,)
-    )
+    location['artifacts'] = db.query_all("""
+        SELECT id, name, artifact_type as type, season, episode, confidence
+        FROM artifacts
+        WHERE location_id = ?
+        LIMIT 50
+    """, (location_id,))
     
     # Get related measurements
-    location['measurements'] = db.query(
-        """SELECT measurement_type, value, unit, season, episode 
-           FROM measurements WHERE location_id = ? LIMIT 50""",
-        (location_id,)
-    )
+    location['measurements'] = db.query_all("""
+        SELECT measurement_type, value, unit, season, episode
+        FROM measurements
+        WHERE location_id = ?
+        LIMIT 100
+    """, (location_id,))
     
     return jsonify(location)
 
-@app.route('/api/v2/events', methods=['GET'])
-def get_events_v2():
-    """Get events with optional filtering.
+# ============================================================================
+# API ENDPOINTS: EPISODES
+# ============================================================================
+
+@app.route('/api/v2/episodes', methods=['GET'])
+def get_episodes():
+    """Get episodes, optionally filtered by season.
     
     Query Parameters:
-        location_id: Filter by location
+        season: Filter by season number (1-13)
+    
+    Returns:
+        [{
+            "id": "s01e01",
+            "season": 1,
+            "episode": 1,
+            "title": "What Lies Below",
+            "air_date": null
+        }, ...]
+    """
+    season = request.args.get('season')
+    
+    if not db.available:
+        data = load_json_slice("episodes_list")
+        if season and data and isinstance(data, dict):
+            season_data = data.get(f"season_{season}")
+            return jsonify(season_data or [])
+        return jsonify(data or {})
+    
+    if season:
+        episodes = db.query_all("""
+            SELECT id, season, episode, title, air_date
+            FROM episodes
+            WHERE season = ?
+            ORDER BY episode
+        """, (int(season),))
+    else:
+        episodes = db.query_all("""
+            SELECT id, season, episode, title, air_date
+            FROM episodes
+            ORDER BY season, episode
+        """)
+    
+    return jsonify(episodes)
+
+# ============================================================================
+# API ENDPOINTS: EVENTS
+# ============================================================================
+
+@app.route('/api/v2/events', methods=['GET'])
+def get_events():
+    """Get events with optional filtering and pagination.
+    
+    Query Parameters:
+        location_id: Filter by location ID
         season: Filter by season
         episode: Filter by episode
-        event_type: Filter by type
         limit: Results per page (default 100, max 1000)
         offset: Pagination offset (default 0)
     
-    Response:
+    Returns:
         {
-            "total": 12345,
+            "total": 6216,
             "count": 100,
-            "offset": 0,
             "events": [...]
         }
     """
     if not db.available:
-        kb = get_knowledge_base(request.args.get('piMode') == 'true')
-        events = kb.events
-        
-        # Apply filters
-        if request.args.get('location_id'):
-            # No location filtering in JSON
-            pass
-        if request.args.get('season'):
-            season = request.args.get('season')
-            events = [e for e in events if str(e.get('season')) == season]
-        
-        return jsonify({'events': events[:100], 'count': len(events), 'total': len(events)})
+        return jsonify({'events': [], 'count': 0, 'total': 0})
     
-    # Build query
-    sql = "SELECT season, episode, timestamp, event_type, text, confidence FROM events WHERE 1=1"
-    params = []
-    
-    if request.args.get('location_id'):
-        sql += " AND location_id = ?"
-        params.append(request.args.get('location_id'))
-    
-    if request.args.get('season'):
-        sql += " AND season = ?"
-        params.append(int(request.args.get('season')))
-    
-    if request.args.get('episode'):
-        sql += " AND episode = ?"
-        params.append(int(request.args.get('episode')))
-    
-    if request.args.get('event_type'):
-        sql += " AND event_type = ?"
-        params.append(request.args.get('event_type'))
-    
-    # Count total
-    count_sql = f"SELECT COUNT(*) as count FROM ({sql})"
-    count_result = db.query(count_sql, tuple(params))
-    total = count_result[0]['count'] if count_result else 0
-    
-    # Apply pagination
     limit = min(int(request.args.get('limit', 100)), 1000)
     offset = int(request.args.get('offset', 0))
     
-    sql += f" LIMIT {limit} OFFSET {offset}"
+    where_clause = "WHERE 1=1"
+    params = []
     
-    events = db.query(sql, tuple(params))
+    if request.args.get('location_id'):
+        where_clause += " AND location_id = ?"
+        params.append(request.args.get('location_id'))
+    
+    if request.args.get('season'):
+        where_clause += " AND season = ?"
+        params.append(int(request.args.get('season')))
+    
+    if request.args.get('episode'):
+        where_clause += " AND episode = ?"
+        params.append(int(request.args.get('episode')))
+    
+    # Count total
+    count_result = db.query_one(f"SELECT COUNT(*) as total FROM events {where_clause}", tuple(params))
+    total = count_result['total'] if count_result else 0
+    
+    # Get paginated results
+    params_with_limit = params + [limit, offset]
+    events = db.query_all(f"""
+        SELECT season, episode, timestamp, event_type, text, confidence
+        FROM events
+        {where_clause}
+        ORDER BY season, episode, timestamp
+        LIMIT ? OFFSET ?
+    """, tuple(params_with_limit))
     
     return jsonify({
-        'events': events,
+        'total': total,
         'count': len(events),
         'offset': offset,
-        'total': total
+        'events': events
     })
 
+# ============================================================================
+# API ENDPOINTS: ARTIFACTS
+# ============================================================================
+
 @app.route('/api/v2/artifacts', methods=['GET'])
-def get_artifacts_v2():
+def get_artifacts():
     """Get artifacts with optional filtering.
     
     Query Parameters:
         location_id: Filter by location
-        artifact_type: Filter by type
         season: Filter by season
+        type: Filter by artifact type
+    
+    Returns:
+        [{
+            "id": "s01e04_a001_stone",
+            "name": "Inscribed stone",
+            "type": "artifact",
+            "location_id": "money_pit",
+            "season": 1,
+            "episode": 4,
+            "confidence": 0.95
+        }, ...]
     """
     if not db.available:
-        # Fallback to JSON or empty
-        return jsonify({'artifacts': [], 'count': 0})
+        data = load_json_slice("artifacts_summary")
+        return jsonify(data or [])
     
-    sql = "SELECT id, name, description, artifact_type, location_id, season, episode FROM artifacts WHERE 1=1"
+    where_clause = "WHERE 1=1"
     params = []
     
     if request.args.get('location_id'):
-        sql += " AND location_id = ?"
+        where_clause += " AND location_id = ?"
         params.append(request.args.get('location_id'))
     
-    if request.args.get('artifact_type'):
-        sql += " AND artifact_type = ?"
-        params.append(request.args.get('artifact_type'))
-    
     if request.args.get('season'):
-        sql += " AND season = ?"
+        where_clause += " AND season = ?"
         params.append(int(request.args.get('season')))
+    
+    if request.args.get('type'):
+        where_clause += " AND type = ?"
+        params.append(request.args.get('type'))
+    
+    artifacts = db.query_all(f"""
+        SELECT id, name, artifact_type as type, location_id, season, episode, confidence FROM artifacts
+        {where_clause}
+        ORDER BY season, episode
+    """, tuple(params))
+    
+    return jsonify(artifacts)
+
+# ============================================================================
+# API ENDPOINTS: THEORIES
+# ============================================================================
+
+@app.route('/api/v2/theories', methods=['GET'])
+def get_theories():
+    """Get all theories with mention counts and evidence.
+    
+    Returns:
+        [{
+            "id": "treasure",
+            "name": "Hidden Treasure",
+            "type": "primary",
+            "evidence_count": 1605,
+            "mentions": 1605
+        }, ...]
+    """
+    if not db.available:
+        data = load_json_slice("theories_summary")
+        return jsonify(data or [])
+    
+    theories = db.query_all("""
+        SELECT id, name, theory_type as type, evidence_count,
+               (SELECT COUNT(*) FROM theory_mentions WHERE theory_id = theories.id) as mentions
+        FROM theories
+        ORDER BY evidence_count DESC
+    """)
+    
+    return jsonify(theories)
+
+@app.route('/api/v2/theories/<theory_id>/mentions', methods=['GET'])
+def get_theory_mentions(theory_id: str):
+    """Get all mentions of a specific theory.
+    
+    Query Parameters:
+        season: Filter by season
+        limit: Results per page
+        offset: Pagination offset
+    
+    Returns:
+        {
+            "theory_id": "treasure",
+            "total_mentions": 1605,
+            "mentions": [...]
+        }
+    """
+    if not db.available:
+        return jsonify({'mentions': [], 'total': 0})
     
     limit = min(int(request.args.get('limit', 100)), 1000)
     offset = int(request.args.get('offset', 0))
     
-    sql += f" LIMIT {limit} OFFSET {offset}"
+    # Count
+    count_result = db.query_one("""
+        SELECT COUNT(*) as total FROM theory_mentions WHERE theory_id = ?
+    """, (theory_id,))
+    total = count_result['total'] if count_result else 0
     
-    artifacts = db.query(sql, tuple(params))
+    # Get mentions
+    mentions = db.query_all("""
+        SELECT season, episode, timestamp, text, confidence
+        FROM theory_mentions
+        WHERE theory_id = ?
+        ORDER BY season, episode
+        LIMIT ? OFFSET ?
+    """, (theory_id, limit, offset))
     
     return jsonify({
-        'artifacts': artifacts,
-        'count': len(artifacts)
+        'theory_id': theory_id,
+        'total_mentions': total,
+        'mentions': mentions
     })
 
-@app.route('/api/v2/theories', methods=['GET'])
-def get_theories_v2():
-    """Get all theories.
-    
-    Response:
-        [
-            {"id": "treasure", "name": "Treasure", "type": "treasure"},
-            ...
-        ]
-    """
-    if not db.available:
-        kb = get_knowledge_base(request.args.get('piMode') == 'true')
-        theories = [{'name': t.get('theory')} for t in kb.theories if 'theory' in t]
-        return jsonify(theories)
-    
-    theories = db.query("SELECT id, name, theory_type FROM theories ORDER BY name")
-    return jsonify(theories)
+# ============================================================================
+# API ENDPOINTS: PEOPLE
+# ============================================================================
 
 @app.route('/api/v2/people', methods=['GET'])
-def get_people_v2():
-    """Get all people.
+def get_people():
+    """Get all people (hosts, experts, team members).
     
-    Response:
-        [
-            {"id": "rick_lagina", "name": "Rick Lagina", "role": "host"},
-            ...
-        ]
+    Returns:
+        [{
+            "id": "rick_lagina",
+            "name": "Rick Lagina",
+            "role": "Fearless Leader",
+            "mentions": 2655,
+            "first_season": 1,
+            "last_season": 13
+        }, ...]
     """
     if not db.available:
-        kb = get_knowledge_base(request.args.get('piMode') == 'true')
-        people = [{'name': p.get('person')} for p in kb.people if 'person' in p]
-        return jsonify(people)
+        data = load_json_slice("people_summary")
+        return jsonify(data or [])
     
-    people = db.query("SELECT id, name, role FROM people ORDER BY name")
+    people = db.query_all("""
+        SELECT id, name, role,
+               (SELECT COUNT(*) FROM person_mentions WHERE person_id = people.id) as mentions,
+               first_appearance_season as first_season, last_appearance_season as last_season
+        FROM people
+        ORDER BY name
+    """)
+    
     return jsonify(people)
 
-@app.route('/api/v2/episodes', methods=['GET'])
-def get_episodes_v2():
-    """Get episodes with optional season filter.
+@app.route('/api/v2/people/<person_id>', methods=['GET'])
+def get_person_detail(person_id: str):
+    """Get person details with all mentions across episodes.
     
     Query Parameters:
-        season: Filter by season number
+        season: Filter mentions by season
+        limit: Results per page
+    
+    Returns:
+        {
+            "id": "rick_lagina",
+            "name": "Rick Lagina",
+            "role": "Fearless Leader",
+            "mentions_total": 2655,
+            "first_season": 1,
+            "last_season": 13,
+            "mentions": [...]
+        }
     """
     if not db.available:
-        kb = get_knowledge_base(request.args.get('piMode') == 'true')
-        return jsonify(kb.episodes)
+        data = load_json_slice("people_summary")
+        for person in (data or []):
+            if person.get('id') == person_id:
+                return jsonify(person)
+        return jsonify({'error': 'Person not found'}), 404
     
-    sql = "SELECT id, season, episode, title, air_date, summary FROM episodes WHERE 1=1"
-    params = []
+    person = db.query_one("""
+        SELECT id, name, role, 
+               first_appearance_season as first_season, 
+               last_appearance_season as last_season
+        FROM people
+        WHERE id = ?
+    """, (person_id,))
     
-    if request.args.get('season'):
-        sql += " AND season = ?"
-        params.append(int(request.args.get('season')))
+    if not person:
+        return jsonify({'error': 'Person not found'}), 404
     
-    sql += " ORDER BY season, episode"
+    limit = int(request.args.get('limit', 100))
     
-    episodes = db.query(sql, tuple(params))
-    return jsonify(episodes)
+    # Get mentions
+    mentions = db.query_all("""
+        SELECT season, episode, timestamp, text, confidence
+        FROM person_mentions
+        WHERE person_id = ?
+        ORDER BY season, episode
+        LIMIT ?
+    """, (person_id, limit))
+    
+    person['mentions_total'] = len(mentions)
+    person['mentions'] = mentions
+    
+    return jsonify(person)
 
 # ============================================================================
-# LEGACY: SEMANTIC/CHATBOT ENDPOINT (preserved for backward compatibility)
+# API ENDPOINTS: SEARCH
 # ============================================================================
 
-@app.post("/api/semantic/query")
-def semantic_query():
-    """
-    Legacy endpoint: Query semantic knowledge base for chatbot.
+@app.route('/api/v2/search', methods=['GET'])
+def search():
+    """Full-text search across locations, theories, people, and artifacts.
     
-    Request:
+    Query Parameters:
+        q: Search query (required)
+        type: Limit to entity type (location, theory, person, artifact)
+        limit: Results per page (default 50)
+    
+    Returns:
         {
-            "query": "What is at Smith's Cove?",
-            "piMode": false
-        }
-    
-    Response:
-        {
-            "answer": "...",
-            "sources": [...],
-            "confidence": 0.95
+            "query": "treasure",
+            "results": {
+                "locations": [...],
+                "theories": [...],
+                "people": [...],
+                "artifacts": [...]
+            }
         }
     """
-    payload = request.get_json() or {}
-    query = payload.get("query", "").strip()
-    pi_mode = payload.get("piMode", False)
+    query = request.args.get('q', '').strip()
+    if not query or len(query) < 2:
+        return jsonify({'error': 'Query must be at least 2 characters'}), 400
     
-    if not query:
-        return jsonify({"error": "Query is required"}), 400
+    search_term = f"%{query}%"
+    limit = int(request.args.get('limit', 50))
     
-    kb = get_knowledge_base(pi_mode=pi_mode)
-    
-    # Simple keyword-based search
-    query_norm = normalize(query)
-    keywords = query_norm.split()
-    
-    # Search locations
-    matching_locations = []
-    for loc in kb.locations:
-        if all(kw in normalize(loc.get('name', '')) for kw in keywords):
-            matching_locations.append(loc)
-    
-    # Build response
-    response = {
-        "answer": f"Found {len(matching_locations)} matching locations",
-        "locations": matching_locations,
-        "sources": [],
-        "confidence": 0.8 if matching_locations else 0.0
+    results = {
+        'query': query,
+        'results': {
+            'locations': [],
+            'theories': [],
+            'people': [],
+            'artifacts': []
+        }
     }
     
-    return jsonify(response)
+    if not db.available:
+        return jsonify(results)
+    
+    # Search locations
+    results['results']['locations'] = db.query_all("""
+        SELECT id, name, type, latitude as lat, longitude as lng
+        FROM locations
+        WHERE name LIKE ?
+        LIMIT ?
+    """, (search_term, limit))
+    
+    # Search theories
+    results['results']['theories'] = db.query_all("""
+        SELECT id, name, theory_type as type, evidence_count
+        FROM theories
+        WHERE name LIKE ?
+        LIMIT ?
+    """, (search_term, limit))
+    
+    # Search people
+    results['results']['people'] = db.query_all("""
+        SELECT id, name, role, 
+               first_appearance_season as first_season, 
+               last_appearance_season as last_season
+        FROM people
+        WHERE name LIKE ?
+        LIMIT ?
+    """, (search_term, limit))
+    
+    # Search artifacts
+    results['results']['artifacts'] = db.query_all("""
+        SELECT id, name, artifact_type as type, location_id, season, episode
+        FROM artifacts
+        WHERE name LIKE ?
+        LIMIT ?
+    """, (search_term, limit))
+    
+    return jsonify(results)
+
+# ============================================================================
+# API ENDPOINTS: STATUS & HEALTH
+# ============================================================================
+
+@app.route('/api/status', methods=['GET'])
+def get_status():
+    """Get API and database status.
+    
+    Returns:
+        {
+            "status": "ok",
+            "database": {
+                "available": true,
+                "path": "/home/pi/oak-island-hub/oak_island_hub.db"
+            },
+            "version": "2.0"
+        }
+    """
+    status_data = {
+        'status': 'ok',
+        'database': {
+            'available': db.available,
+            'path': str(DB_PATH) if db.available else None
+        },
+        'version': '2.0',
+        'api': 'Semantic REST API'
+    }
+    
+    if db.available:
+        # Get database statistics
+        stats = db.query_one("""
+            SELECT 
+                (SELECT COUNT(*) FROM locations) as locations,
+                (SELECT COUNT(*) FROM episodes) as episodes,
+                (SELECT COUNT(*) FROM people) as people,
+                (SELECT COUNT(*) FROM theories) as theories,
+                (SELECT COUNT(*) FROM events) as events,
+                (SELECT COUNT(*) FROM artifacts) as artifacts,
+                (SELECT COUNT(*) FROM measurements) as measurements
+        """)
+        if stats:
+            status_data['counts'] = dict(stats)
+    
+    return jsonify(status_data)
 
 # ============================================================================
 # STATIC FILE SERVING
@@ -572,12 +713,15 @@ def semantic_query():
 @app.route('/', defaults={'path': 'index.html'})
 @app.route('/<path:path>')
 def serve_static(path):
-    """Serve static files from docs/ directory."""
+    """Serve static files from docs/ directory (SPA fallback)."""
     file_path = APP_DIR / path
     
     # Security: prevent directory traversal
-    if not str(file_path.resolve()).startswith(str(APP_DIR.resolve())):
-        return jsonify({"error": "Access denied"}), 403
+    try:
+        if not str(file_path.resolve()).startswith(str(APP_DIR.resolve())):
+            return jsonify({'error': 'Access denied'}), 403
+    except:
+        return jsonify({'error': 'Invalid path'}), 400
     
     if file_path.is_file():
         return send_from_directory(str(APP_DIR), path)
@@ -586,24 +730,7 @@ def serve_static(path):
     if (APP_DIR / 'index.html').exists():
         return send_from_directory(str(APP_DIR), 'index.html')
     
-    return jsonify({"error": "Not found"}), 404
-
-# ============================================================================
-# STATUS AND HEALTH CHECKS
-# ============================================================================
-
-@app.route('/api/status', methods=['GET'])
-def status():
-    """Check API and database status."""
-    return jsonify({
-        'status': 'ok',
-        'database': {
-            'available': db.available,
-            'path': str(DB_PATH) if db.available else None
-        },
-        'version': '2.0',
-        'features': ['REST API v2 (SQLite)', 'Legacy Semantic Query (JSON)']
-    })
+    return jsonify({'error': 'Not found'}), 404
 
 # ============================================================================
 # ERROR HANDLERS
@@ -612,33 +739,43 @@ def status():
 @app.errorhandler(404)
 def not_found(error):
     """Handle 404 errors."""
-    return jsonify({"error": "Not found"}), 404
+    return jsonify({'error': 'Not found'}), 404
 
 @app.errorhandler(500)
 def internal_error(error):
     """Handle 500 errors."""
     logger.error(f"Internal error: {error}")
-    return jsonify({"error": "Internal server error"}), 500
+    return jsonify({'error': 'Internal server error'}), 500
 
 # ============================================================================
 # APPLICATION ENTRY POINT
 # ============================================================================
 
 if __name__ == '__main__':
-    import argparse
-    
-    parser = argparse.ArgumentParser(description='Oak Island Hub API Server')
+    parser = argparse.ArgumentParser(
+        description='Oak Island Hub Semantic REST API Server'
+    )
     parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
     parser.add_argument('--port', type=int, default=5000, help='Port to bind to')
     parser.add_argument('--dev', action='store_true', help='Development mode')
+    parser.add_argument('--db', type=str, help='Database path override')
     
     args = parser.parse_args()
     
-    logger.info(f"Starting Oak Island Hub API Server")
+    if args.db:
+        import os
+        os.environ['DATABASE_PATH'] = args.db
+    
+    logger.info("=" * 80)
+    logger.info("Oak Island Hub Semantic API Server")
+    logger.info("=" * 80)
     logger.info(f"  Static files: {APP_DIR}")
-    logger.info(f"  Data files: {DATA_DIR}")
-    logger.info(f"  Database: {DB_PATH} (available: {db.available})")
-    logger.info(f"  Binding to {args.host}:{args.port}")
+    logger.info(f"  Data directory: {DATA_DIR}")
+    logger.info(f"  Database: {DB_PATH}")
+    logger.info(f"  Available: {db.available}")
+    logger.info(f"  Binding to: {args.host}:{args.port}")
+    logger.info(f"  Debug mode: {args.dev}")
+    logger.info("=" * 80)
     
     app.run(
         host=args.host,

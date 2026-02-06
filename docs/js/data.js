@@ -43,6 +43,25 @@ async function loadSemanticData() {
     return;
   }
 
+  // Use the new REST API client for lazy-loading
+  if (typeof loadSemanticDataViaAPI === "function") {
+    try {
+      await loadSemanticDataViaAPI();
+      console.log("[loadData] Semantic data loaded via REST API.");
+    } catch (err) {
+      console.warn("[loadData] API loading failed, falling back to JSON files:", err);
+      // Fall back to direct JSON loading if API unavailable
+      await loadSemanticDataViaJSON();
+    }
+  } else {
+    console.warn("[loadData] API client not loaded, falling back to JSON files");
+    await loadSemanticDataViaJSON();
+  }
+}
+
+async function loadSemanticDataViaJSON() {
+  console.log("[loadData] Loading semantic data from JSON files...");
+
   const files = [
     { key: "events", path: "data/events.json" },
     { key: "measurements", path: "data/measurements.json" },
@@ -88,7 +107,7 @@ async function loadSemanticData() {
   window.semanticData = result;
   window.semanticReady = true;
   window.dispatchEvent(new CustomEvent("semantic:ready"));
-  console.log("[loadData] Semantic data load complete.");
+  console.log("[loadData] Semantic data load complete (JSON fallback).");
 }
 
 window.loadData = async function () {
