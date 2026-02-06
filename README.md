@@ -1,10 +1,3 @@
-Absolutely, Jerry — here’s a **clean, professional, GitHub‑ready README** for your new repo.  
-It’s written in a way that feels polished, intentional, and portfolio‑worthy, without any fluff.
-
-You can paste this directly into `README.md` in your repo.
-
----
-
 # **Oak Island Hub**  
 A handcrafted, research‑driven exploration dashboard for Oak Island — blending geospatial visualization, historical data, semantic search, and a clean, responsive UI. Built as part of the Evergreen Media Design ecosystem.
 
