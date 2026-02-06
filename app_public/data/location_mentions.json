@@ -1,0 +1,222 @@
+[
+  {
+    "season": "1",
+    "episode": "1",
+    "timestamp": "00:03:40.569",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "Money Pit.",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s01e01.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "1",
+    "timestamp": "00:20:12.370",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "Money Pit.",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s01e01.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "1",
+    "timestamp": "00:29:07.000",
+    "location_id": "smiths_cove",
+    "location_name": "smiths_cove",
+    "text": "Smith's Cove.",
+    "confidence": "0.8333333333333334",
+    "source_refs": "s01e01.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "1",
+    "timestamp": "00:34:16.100",
+    "location_id": "smiths_cove",
+    "location_name": "smiths_cove",
+    "text": "Smith's Cove.",
+    "confidence": "0.8333333333333334",
+    "source_refs": "s01e01.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "1",
+    "timestamp": "00:34:37.403",
+    "location_id": "smiths_cove",
+    "location_name": "smiths_cove",
+    "text": "Smith's Cove.",
+    "confidence": "0.8333333333333334",
+    "source_refs": "s01e01.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "1",
+    "timestamp": "00:37:06.970",
+    "location_id": "smiths_cove",
+    "location_name": "smiths_cove",
+    "text": "Smith's Cove.",
+    "confidence": "0.8333333333333334",
+    "source_refs": "s01e01.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "1",
+    "timestamp": "00:37:09.470",
+    "location_id": "smiths_cove",
+    "location_name": "smiths_cove",
+    "text": "Smith's Cove.",
+    "confidence": "0.8333333333333334",
+    "source_refs": "s01e01.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "3",
+    "timestamp": "00:03:27.860",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "Money Pit.",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s01e03.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "3",
+    "timestamp": "00:10:43.149",
+    "location_id": "the_swamp",
+    "location_name": "the_swamp",
+    "text": "the swamp.",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s01e03.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "3",
+    "timestamp": "00:38:20.910",
+    "location_id": "the_swamp",
+    "location_name": "the_swamp",
+    "text": "the swamp.",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s01e03.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "3",
+    "timestamp": "00:38:22.910",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "Money Pit.",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s01e03.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "4",
+    "timestamp": "00:22:48.230",
+    "location_id": "the_swamp",
+    "location_name": "the_swamp",
+    "text": "the swamp?",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s01e04.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "4",
+    "timestamp": "00:32:43.130",
+    "location_id": "the_swamp",
+    "location_name": "the_swamp",
+    "text": "the swamp.",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s01e04.en.srt"
+  },
+  {
+    "season": "1",
+    "episode": "5",
+    "timestamp": "00:42:37.540",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "Money Pit.",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s01e05.en.srt"
+  },
+  {
+    "season": "2",
+    "episode": "4",
+    "timestamp": "00:00:19.120",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "money pit",
+    "confidence": "0.8888888888888888",
+    "source_refs": "s02e04.en.srt"
+  },
+  {
+    "season": "2",
+    "episode": "9",
+    "timestamp": "00:28:58.490",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "money pit",
+    "confidence": "0.8888888888888888",
+    "source_refs": "s02e09.en.srt"
+  },
+  {
+    "season": "2",
+    "episode": "10",
+    "timestamp": "00:32:28.880",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "Money Pit.",
+    "confidence": "0.8421052631578947",
+    "source_refs": "s02e10.en.srt"
+  },
+  {
+    "season": "3",
+    "episode": "5",
+    "timestamp": "00:15:14.439",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "money pit",
+    "confidence": "0.8888888888888888",
+    "source_refs": "s03e05.en.srt"
+  },
+  {
+    "season": "3",
+    "episode": "6",
+    "timestamp": "00:05:49.880",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "money pit",
+    "confidence": "0.8888888888888888",
+    "source_refs": "s03e06.en.srt"
+  },
+  {
+    "season": "3",
+    "episode": "11",
+    "timestamp": "00:12:58.670",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "money pit",
+    "confidence": "0.8888888888888888",
+    "source_refs": "s03e11.en.srt"
+  },
+  {
+    "season": "3",
+    "episode": "11",
+    "timestamp": "00:21:09.549",
+    "location_id": "money_pit",
+    "location_name": "money_pit",
+    "text": "money pit",
+    "confidence": "0.8888888888888888",
+    "source_refs": "s03e11.en.srt"
+  },
+  {
+    "season": "5",
+    "episode": "10",
+    "timestamp": "00:39:01.039",
+    "location_id": "smiths_cove",
+    "location_name": "smiths_cove",
+    "text": "Smith's Cove.",
+    "confidence": "0.8333333333333334",
+    "source_refs": "s05e10.en.srt"
+  }
+]

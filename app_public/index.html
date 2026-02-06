@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Oak Island Interactive Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="chatbot/chatbot.css">
+</head>
+
+<body>
+  <div id="main-container">
+    <nav id="top-nav">
+      <button class="nav-button" data-view="map-view">Map</button>
+      <button class="nav-button active" data-view="chatbot-view">Chatbot</button>
+    </nav>
+
+    <div id="view-container">
+      <section id="map-view" class="view">
+        <div id="app">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <header>
+        <h1>Oak Island Interactive Map</h1>
+        <p>Explore dig sites, artifacts, boreholes, and history.</p>
+      </header>
+
+      <!-- FILTERS -->
+      <section class="filter-section">
+        <h2>Filters</h2>
+
+        <!-- CATEGORY FILTERS -->
+        <div class="filter-group">
+          <h3>Category</h3>
+          <div id="category-filters"></div>
+        </div>
+
+        <!-- SEASON FILTER -->
+        <div class="filter-group">
+          <h3>Season</h3>
+          <select id="season-filter">
+            <option value="all">All Seasons</option>
+          </select>
+        </div>
+
+        <!-- SEARCH -->
+        <div class="filter-group">
+          <h3>Search</h3>
+          <input type="text" id="search-input" placeholder="Search locations or artifacts...">
+        </div>
+
+        <!-- GLOBAL SEARCH -->
+        <div class="filter-group">
+          <h3>Global Search</h3>
+          <input type="text" id="global-search" placeholder="Search artifacts, boreholes, locations...">
+          <div id="search-results" class="search-results" style="display: none;"></div>
+        </div>
+      </section>
+
+      <!-- DETAILS PANEL -->
+      <section class="info-section">
+        <h2>Details</h2>
+        <div id="details-panel">
+          <p>Select a marker on the map to see details here.</p>
+        </div>
+
+        <!-- CROSS SECTION -->
+        <section id="cross-section-container">
+          <h2>Borehole Cross-Section</h2>
+          <div id="cross-section"></div>
+        </section>
+      </section>
+
+      <!-- EPISODE LIST -->
+      <section class="info-section">
+        <h2>Episodes</h2>
+        <div id="episode-list">
+          <p>Select a location or artifact to highlight episodes.</p>
+        </div>
+
+        <!-- SEMANTIC PANEL (NEW) -->
+        <div id="episode-semantic-panel" class="episode-semantic-panel"></div>
+      </section>
+
+    </aside>
+
+    <!-- MAP AREA -->
+    <main id="map-container">
+      <div id="map"></div>
+
+      <!-- TIMELINE SLIDER -->
+      <div id="timeline-bar">
+        <input type="range" id="timeline-slider" min="1700" max="2025" value="2025">
+        <span id="timeline-year">2025</span>
+      </div>
+
+      <!-- OVERLAY PANEL -->
+      <div id="overlay-panel">
+        <label><input type="checkbox" id="overlay-nolan"> Nolan's Map</label>
+        <label><input type="checkbox" id="overlay-1897"> 1897 Survey</label>
+      </div>
+
+      <!-- LAYER TOGGLES -->
+      <div id="layer-panel">
+        <label><input type="checkbox" id="layer-locations" checked> Locations</label>
+        <label><input type="checkbox" id="layer-boreholes" checked> Boreholes</label>
+        <label><input type="checkbox" id="layer-artifacts" checked> Artifacts</label>
+        <label><input type="checkbox" id="layer-heatmap"> Heatmap</label>
+      </div>
+
+    </main>
+
+        </div>
+      </section>
+
+      <section id="chatbot-view" class="view active">
+        <div id="chatbot-root"></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Fuse.js for global search -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+  <!-- App Logic Loader -->
+  <script>
+    console.log("Loading app without ES6 modules...");
+
+    const coreScripts = [
+      "js/state.js",
+      "js/utils.js",
+      "js/validation.js",
+      "js/filters.js",
+      "js/details.js",
+      "js/episodes.js",
+      "js/search.js",
+      "js/chatbot.js",
+      "js/data.js",
+      "app.js"
+    ];
+
+    const mapScripts = [
+      "js/map/init.js",
+      "js/map/layers_and_control.js",
+      "js/map/overlays_and_clusters.js",
+      "js/map/contours_and_perf_and_coords.js",
+      "js/map.js",
+      "js/markers.js"
+    ];
+
+    let loaded = 0;
+    const total = coreScripts.length;
+
+    function loadStylesheet(href) {
+      return new Promise((resolve, reject) => {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        link.onload = resolve;
+        link.onerror = () => reject(new Error("Failed to load " + href));
+        document.head.appendChild(link);
+      });
+    }
+
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = () => {
+          loaded++;
+          console.log("Loaded " + src + " (" + loaded + "/" + total + ")");
+          resolve();
+        };
+        script.onerror = () => {
+          console.error("Failed to load " + src);
+          reject(new Error("Failed to load " + src));
+        };
+        document.head.appendChild(script);
+      });
+    }
+
+    async function loadAllScripts() {
+      try {
+        for (const src of coreScripts) {
+          await loadScript(src);
+        }
+        console.log("All scripts loaded, initializing app...");
+      } catch (error) {
+        console.error("Failed to load scripts:", error);
+      }
+    }
+
+    window.loadMapAssets = function() {
+      if (window.__mapAssetsLoading) return window.__mapAssetsLoading;
+
+      window.__mapAssetsLoading = (async () => {
+        await loadStylesheet("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css");
+        await loadStylesheet("https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css");
+        await loadStylesheet("https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css");
+
+        await loadScript("https://unpkg.com/leaflet@1.9.4/dist/leaflet.js");
+        await loadScript("https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js");
+
+        for (const src of mapScripts) {
+          await loadScript(src);
+        }
+      })();
+
+      return window.__mapAssetsLoading;
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", loadAllScripts);
+    } else {
+      loadAllScripts();
+    }
+  </script>
+
+</body>
+</html>

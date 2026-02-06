@@ -1,0 +1,99 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+ENV/
+.env/
+env/
+.venv/
+
+# Large data folders
+data_raw/
+data_extracted/
+app_public/tiles/
+app_public/data/subtitles/
+
+# External tile and asset storage (all platforms)
+/mnt/storage/
+D:/oak-island-hub/
+D:\oak-island-hub\
+
+# Backups and dumps
+backups/
+app_public/full_dump.txt
+*.backup
+*.bak.tif
+
+# Large geospatial assets (rasters, vectors, and source files)
+*.tif
+*.tif.aux.xml
+*.tif.ovr
+*.tfw
+*.tif.xml
+*.vrt
+*.las
+*.laz
+*.ovr
+*.aux.xml
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.lyr
+*.gpkg
+*.geopackage
+
+# Large media files
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.mov
+*.avi
+
+# Large text archives
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Logs, temp, and cache files
+*.log
+*.tmp
+*.temp
+*.cache
+*~
+.DS_STORE
+Thumbs.db
+
+# IDE and editor settings
+.vscode/
+.vscode-remote/
+.idea/
+*.swp
+*.swo
+*.swapc
+*~.swp
+.project
+.pydevproject
+.settings/
+
+# Node modules (if using any node tools)
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Python package distribution
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Render deployment
+Procfile
+runtime.txt

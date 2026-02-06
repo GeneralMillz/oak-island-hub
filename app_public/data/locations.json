@@ -1,0 +1,23 @@
+[
+  {
+    "id": "garden_shaft",
+    "name": "Garden Shaft",
+    "type": "shaft",
+    "lat": 44.523630,
+    "lng": -64.300210
+  },
+  {
+    "id": "money_pit",
+    "name": "Money Pit",
+    "type": "shaft",
+    "lat": 44.523550,
+    "lng": -64.300020
+  },
+  {
+    "id": "smiths_cove",
+    "name": "Smith's Cove",
+    "type": "feature",
+    "lat": 44.523900,
+    "lng": -64.298900
+  }
+]

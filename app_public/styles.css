@@ -1,0 +1,302 @@
+/* ------------------------------------------------------------
+   Root Theme
+------------------------------------------------------------ */
+:root {
+  --bg: #0a0a0a;
+  --bg-panel: #111;
+  --border: #222;
+  --accent: #22c55e;
+  --text: #e5e7eb;
+  --text-muted: #9ca3af;
+}
+
+/* ------------------------------------------------------------
+   Global Reset
+------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#top-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-panel);
+}
+
+.nav-button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.nav-button.active {
+  background: var(--accent);
+  color: #05130a;
+  border-color: var(--accent);
+}
+
+#view-container {
+  flex: 1;
+  position: relative;
+}
+
+.view {
+  display: none;
+  height: 100%;
+}
+
+.view.active {
+  display: block;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------
+   Sidebar
+------------------------------------------------------------ */
+#sidebar {
+  width: 320px;
+  max-width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#sidebar header h1 {
+  margin: 0 0 4px 0;
+  font-size: 1.2rem;
+}
+
+#sidebar header p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ------------------------------------------------------------
+   Filters
+------------------------------------------------------------ */
+.filter-section {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.filter-section h2 {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.filter-group {
+  margin-bottom: 10px;
+}
+
+.filter-group h3 {
+  margin: 0 0 4px 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------
+   Category Chips
+------------------------------------------------------------ */
+#category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.category-chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.category-chip.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+/* ------------------------------------------------------------
+   Info Sections
+------------------------------------------------------------ */
+.info-section {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-section h2 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+#details-panel {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ------------------------------------------------------------
+   Episode List
+------------------------------------------------------------ */
+.episode-item {
+  padding: 6px 4px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+}
+
+.episode-item.active {
+  background: rgba(34, 197, 94, 0.15);
+  border-left: 3px solid var(--accent);
+}
+
+/* ------------------------------------------------------------
+   Map Area
+------------------------------------------------------------ */
+#map-container {
+  flex: 1;
+  position: relative;
+  background: var(--bg);
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------------------------------
+   Timeline Bar
+------------------------------------------------------------ */
+#timeline-bar {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  background: var(--bg-panel);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#timeline-slider {
+  width: 160px;
+}
+
+#timeline-year {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ------------------------------------------------------------
+   Overlay Panel
+------------------------------------------------------------ */
+#overlay-panel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--bg-panel);
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ------------------------------------------------------------
+   Semantic Explorer Table
+------------------------------------------------------------ */
+.semantic-table-wrapper {
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid var(--border);
+}
+
+.semantic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.semantic-table th,
+.semantic-table td {
+  border: 1px solid var(--border);
+  padding: 4px 6px;
+}
+
+/* ------------------------------------------------------------
+   Mobile
+------------------------------------------------------------ */
+@media (max-width: 900px) {
+  #app {
+    flex-direction: column;
+  }
+
+  #sidebar {
+    width: 100%;
+    height: auto;
+    max-height: 40vh;
+  }
+
+  #map-container {
+    height: 60vh;
+  }
+}

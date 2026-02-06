@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "generatedAt": "2026-01-10T02:18:18.369316Z"
+  },
+  "boreholes": [
+    {
+      "id": "c1",
+      "name": "C1",
+      "location_id": null,
+      "lat": 44.5235,
+      "lng": -64.3,
+      "collarElevation_m": 5.0,
+      "maxDepth_m": 60.0,
+      "drillMethod": "drilled",
+      "era": "modern",
+      "relatedSeasons": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "sourcePriority": "ShowFrame",
+      "sourceRefs": "stub",
+      "intervals": [
+        {
+          "id": "c1_0_10",
+          "borehole_id": "c1",
+          "depthFrom_m": 0.0,
+          "depthTo_m": 10.0,
+          "material": "overburden",
+          "waterIntrusion": false,
+          "sampleTaken": false,
+          "sampleType": "",
+          "labResultRef": "",
+          "confidence": 0.8,
+          "sourceRefs": "stub"
+        },
+        {
+          "id": "c1_10_20",
+          "borehole_id": "c1",
+          "depthFrom_m": 10.0,
+          "depthTo_m": 20.0,
+          "material": "wood",
+          "waterIntrusion": true,
+          "sampleTaken": true,
+          "sampleType": "core",
+          "labResultRef": "lab_stub",
+          "confidence": 0.9,
+          "sourceRefs": "stub"
+        }
+      ]
+    },
+    {
+      "id": "gg1",
+      "name": "GG1",
+      "location_id": "money_pit",
+      "lat": null,
+      "lng": null,
+      "collarElevation_m": null,
+      "maxDepth_m": null,
+      "drillMethod": "",
+      "era": "",
+      "relatedSeasons": [],
+      "sourcePriority": "",
+      "sourceRefs": "",
+      "intervals": []
+    }
+  ]
+}

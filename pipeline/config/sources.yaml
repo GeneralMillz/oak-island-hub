@@ -1,0 +1,87 @@
+tmdb:
+  api_key: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYzU4ZDM3Y2VkNGQ2ZTIyNDZlZWQ3ZDdjNjNhZTRjMyIsIm5iZiI6MTc2NzAzMTQ5Mi45Miwic3ViIjoiNjk1MmMyYzRkZTUwODg1OGM5Y2JkNjdkIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.xqv7kGFnJjFmm-z4LhvynA9l74QOrT4CWWDDuY7oY6c"
+  show_id: 60603
+  language: "en-US"
+  include_specials: false
+
+opensubtitles:
+  api_key: "OF5mGa59PsflZHd2ZVyzeeQhmI2PMaeH"
+  user_agent: "Oak Island Research Appliance"
+  language: "en"
+  max_failures: 5
+
+open_data:
+  hydrography:
+    dataset_id: "fpca-jrmt"
+    enabled: true
+  contours:
+    dataset_id: "14"
+    enabled: true
+
+lidar:
+  enabled: true
+  laz: "data_raw/lidar/397_4929_201601.laz"
+  dem: "data_raw/lidar/1044500064200_201601_DEM.tif"
+  dsm: "data_raw/lidar/1044500064200_201601_DSM.tif"
+  raw_dem: "data_raw/lidar/1044500064200_201601_RAW_DEM.tif"
+  hillshade: "data_raw/lidar/1044500064200_201601_HILL.tif"
+  slope: "data_raw/lidar/1044500064200_201601_SLP.tif"
+  aspect: "data_raw/lidar/1044500064200_201601_ASP.tif"
+  intensity: "data_raw/lidar/1044500064200_201601_INT.tif"
+  chm: "data_raw/lidar/1044500064200_201601_CHM.tif"
+  orthophoto: "data_raw/lidar/1044500064300_2011_Topo_GeoRef.jpg"
+
+historical_maps:
+  enabled: true
+  paths:
+    - "data_raw/historical_maps/historical_map_1.jpg"
+    - "data_raw/historical_maps/historical_map_2.jpg"
+
+satellite:
+  enabled: true
+  base_url: "https://ecn.t3.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=1"
+  tiles:
+    - name: "oak_island_core.jpg"
+      path: "data_raw/satellite/oak_island_core.jpg"
+      quadkey: "032010123"
+
+forums:
+  enabled: true
+  path: "data_raw/forums"
+
+frames:
+  enabled: true
+  path: "data_raw/frames"
+
+subtitles:
+  enabled: true
+  path: "data_raw/subtitles"
+
+tmdb_cache:
+  enabled: true
+  path: "data_raw/tmdb"
+
+books:
+  enabled: false
+  paths:
+    - "data_raw/books/oak_island_mystery.pdf"
+    - "data_raw/books/big_dig.pdf"
+
+academic:
+  enabled: false
+  papers:
+    - doi: "10.1139/e80-123"
+    - doi: "10.1139/e75-045"
+
+foia:
+  enabled: false
+  email: "your-email@example.com"
+  imap_server: "imap.example.com"
+  imap_user: "your-email@example.com"
+  imap_password: "CHANGEME"
+  auto_download_attachments: true
+
+geometry:
+  enabled: true
+  manual_facts: "data_extracted/facts/geometry_manual.jsonl"
+  prefer_high_confidence: true
