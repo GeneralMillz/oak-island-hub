@@ -1,0 +1,135 @@
+<!-- Artifacts & Evidence Section -->
+<div class="section-artifacts">
+  <header class="section-header">
+    <h1>Artifacts & Evidence</h1>
+    <p>Physical objects and findings from Oak Island</p>
+  </header>
+
+  <div class="section-container">
+    <!-- Filters -->
+    <div id="filter-container" class="filter-bar">
+      <div class="filter-group">
+        <label>Location:</label>
+        <select id="location-filter" class="filter-select"><option value="">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Season:</label>
+        <select id="season-filter" class="filter-select"><option value="">All</option></select>
+      </div>
+    </div>
+
+    <!-- Artifacts Grid -->
+    <div id="artifacts-grid" class="artifacts-grid">
+      <div class="loading">Loading artifacts...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/**
+ * Artifacts page renderer
+ */
+async function renderArtifacts(container) {
+  const html = `<!-- Artifacts & Evidence Section -->
+<div class="section-artifacts">
+  <header class="section-header">
+    <h1>Artifacts & Evidence</h1>
+    <p>Physical objects and findings from Oak Island</p>
+  </header>
+
+  <div class="section-container">
+    <!-- Filters -->
+    <div id="filter-container" class="filter-bar">
+      <div class="filter-group">
+        <label>Location:</label>
+        <select id="location-filter" class="filter-select"><option value="">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Season:</label>
+        <select id="season-filter" class="filter-select"><option value="">All</option></select>
+      </div>
+    </div>
+
+    <!-- Artifacts Grid -->
+    <div id="artifacts-grid" class="artifacts-grid">
+      <div class="loading">Loading artifacts...</div>
+    </div>
+  </div>
+</div>`;
+
+  container.innerHTML = html;
+
+  let allArtifacts = [];
+  let allLocations = [];
+
+  try {
+    // Load artifacts
+    const artsResult = await apiService.getArtifacts();
+    if (artsResult.success && artsResult.data) {
+      allArtifacts = Array.isArray(artsResult.data.data) ? artsResult.data.data : artsResult.data;
+    }
+
+    // Load locations for filter
+    const locsResult = await apiService.getLocations();
+    if (locsResult.success && locsResult.data) {
+      allLocations = Array.isArray(locsResult.data.data) ? locsResult.data.data : locsResult.data;
+    }
+
+    // Populate filters
+    const locFilter = document.getElementById('location-filter');
+    allLocations.forEach(loc => {
+      const opt = document.createElement('option');
+      opt.value = loc.id;
+      opt.textContent = loc.name;
+      locFilter.appendChild(opt);
+    });
+
+    const seasons = [...new Set(allArtifacts.map(a => a.season).filter(s => s))].sort((a, b) => a - b);
+    const seasonFilter = document.getElementById('season-filter');
+    seasons.forEach(season => {
+      const opt = document.createElement('option');
+      opt.value = season;
+      opt.textContent = `Season ${season}`;
+      seasonFilter.appendChild(opt);
+    });
+
+    // Display artifacts
+    displayArtifacts(allArtifacts);
+
+    // Filter handlers
+    const updateDisplay = () => {
+      const location = document.getElementById('location-filter').value;
+      const season = document.getElementById('season-filter').value;
+
+      let filtered = allArtifacts;
+      if (location) filtered = filtered.filter(a => a.location_id === location);
+      if (season) filtered = filtered.filter(a => a.season == season);
+
+      displayArtifacts(filtered);
+    };
+
+    document.getElementById('location-filter').addEventListener('change', updateDisplay);
+    document.getElementById('season-filter').addEventListener('change', updateDisplay);
+  } catch (err) {
+    document.getElementById('artifacts-grid').innerHTML = UI.renderError(err.message);
+  }
+}
+
+function displayArtifacts(artifacts) {
+  const html = (artifacts || []).map(art => `
+    <div class="artifact-card">
+      <div class="artifact-icon">🏺</div>
+      <h3>${UI.escapeHtml(art.name || art.title || 'Artifact')}</h3>
+      ${art.type ? `<p class="artifact-type">${UI.escapeHtml(art.type)}</p>` : ''}
+      ${art.description ? `<p class="artifact-desc">${UI.truncate(UI.escapeHtml(art.description), 100)}</p>` : ''}
+      ${art.location_name ? `<p class="artifact-location">📍 ${UI.escapeHtml(art.location_name)}</p>` : ''}
+      ${art.season ? `<p class="artifact-season">Season ${art.season}</p>` : ''}
+    </div>
+  `).join('');
+
+  document.getElementById('artifacts-grid').innerHTML = html || UI.renderEmpty('No artifacts found');
+}
+
+// Register route
+window.router.register('artifacts', renderArtifacts);
+</script>

@@ -1,0 +1,141 @@
+<!-- Theories Hub Section -->
+<div class="section-theories">
+  <header class="section-header">
+    <h1>Research Theories</h1>
+    <p>Canonical theories and research hypotheses</p>
+  </header>
+
+  <div class="section-container side-by-side">
+    <!-- Theories List -->
+    <div class="left-panel">
+      <div id="theories-list" class="theories-list">
+        <div class="loading">Loading theories...</div>
+      </div>
+    </div>
+
+    <!-- Theory Detail -->
+    <div class="right-panel">
+      <div id="theory-detail" class="theory-detail">
+        <div class="placeholder">Select a theory to see details</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/**
+ * Theories page renderer
+ */
+async function renderTheories(container) {
+  const html = `<!-- Theories Hub Section -->
+<div class="section-theories">
+  <header class="section-header">
+    <h1>Research Theories</h1>
+    <p>Canonical theories and research hypotheses</p>
+  </header>
+
+  <div class="section-container side-by-side">
+    <!-- Theories List -->
+    <div class="left-panel">
+      <div id="theories-list" class="theories-list">
+        <div class="loading">Loading theories...</div>
+      </div>
+    </div>
+
+    <!-- Theory Detail -->
+    <div class="right-panel">
+      <div id="theory-detail" class="theory-detail">
+        <div class="placeholder">Select a theory to see details</div>
+      </div>
+    </div>
+  </div>
+</div>`;
+
+  container.innerHTML = html;
+
+  try {
+    const result = await apiService.getTheories();
+    if (result.success && result.data) {
+      const theories = Array.isArray(result.data.data) ? result.data.data : result.data;
+      displayTheoriesList(theories || []);
+    }
+  } catch (err) {
+    document.getElementById('theories-list').innerHTML = UI.renderError(err.message);
+  }
+}
+
+function displayTheoriesList(theories) {
+  const sorted = theories.sort((a, b) => (b.mention_count || 0) - (a.mention_count || 0));
+
+  const html = sorted.map(theory => `
+    <div class="theory-item" onclick="showTheoryDetail('${theory.id}')">
+      <div class="theory-header">
+        <h3>${UI.escapeHtml(theory.name || theory.title || 'Theory')}</h3>
+        ${theory.mention_count ? `<span class="mention-badge">${theory.mention_count} mentions</span>` : ''}
+      </div>
+      ${theory.description ? `<p>${UI.truncate(UI.escapeHtml(theory.description), 120)}</p>` : ''}
+      ${theory.confidence ? `<div class="confidence">Confidence: ${Math.round(theory.confidence * 100)}%</div>` : ''}
+    </div>
+  `).join('');
+
+  document.getElementById('theories-list').innerHTML = html || UI.renderEmpty('No theories found');
+}
+
+async function showTheoryDetail(theoryId) {
+  const detailEl = document.getElementById('theory-detail');
+  detailEl.innerHTML = '<div class="loading">Loading...</div>';
+
+  try {
+    const result = await apiService.getTheories();
+    const theories = Array.isArray(result.data.data) ? result.data.data : result.data;
+    const theory = theories.find(t => t.id === theoryId);
+
+    if (!theory) {
+      detailEl.innerHTML = UI.renderError('Theory not found');
+      return;
+    }
+
+    let html = `
+      <div class="detail-header">
+        <h2>${UI.escapeHtml(theory.name || theory.title || 'Theory')}</h2>
+        ${theory.mention_count ? `<p class="mentions">Referenced ${theory.mention_count} times</p>` : ''}
+      </div>
+      <div class="detail-content">
+    `;
+
+    if (theory.description) {
+      html += `<p>${UI.escapeHtml(theory.description)}</p>`;
+    }
+
+    if (theory.confidence) {
+      html += `<div class="confidence-bar">
+        <label>Evidence Strength</label>
+        <div class="bar" style="width: ${Math.round(theory.confidence * 100)}%"></div>
+        <span>${Math.round(theory.confidence * 100)}%</span>
+      </div>`;
+    }
+
+    html += '</div>';
+    detailEl.innerHTML = html;
+
+    // Load mentions
+    const mentionsResult = await apiService.getTheoryMentions(theoryId, { limit: 20 });
+    if (mentionsResult.success && mentionsResult.data && mentionsResult.data.mentions) {
+      const mentions = mentionsResult.data.mentions;
+      if (mentions.length > 0) {
+        let mentionsHtml = '<h3>Mentions</h3><div class="mentions-list">';
+        mentions.forEach(m => {
+          mentionsHtml += `<div class="mention-item">${UI.escapeHtml(m.context || m.description || 'Mentioned')}</div>`;
+        });
+        mentionsHtml += '</div>';
+        detailEl.innerHTML += mentionsHtml;
+      }
+    }
+  } catch (err) {
+    detailEl.innerHTML = UI.renderError(err.message);
+  }
+}
+
+// Register route
+window.router.register('theories', renderTheories);
+</script>

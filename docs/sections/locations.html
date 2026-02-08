@@ -1,0 +1,132 @@
+<!-- Locations Explorer Section -->
+<div class="section-locations">
+  <header class="section-header">
+    <h1>Locations</h1>
+    <p>Explore dig sites and landmarks</p>
+  </header>
+
+  <div class="section-container side-by-side">
+    <!-- Locations List -->
+    <div class="left-panel">
+      <div id="locations-list" class="locations-list">
+        <div class="loading">Loading locations...</div>
+      </div>
+    </div>
+
+    <!-- Location Detail / Map -->
+    <div class="right-panel">
+      <div id="location-detail" class="location-detail">
+        <div class="placeholder">Select a location to see details</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/**
+ * Locations page renderer
+ */
+async function renderLocations(container) {
+  const html = `<!-- Locations Explorer Section -->
+<div class="section-locations">
+  <header class="section-header">
+    <h1>Locations</h1>
+    <p>Explore dig sites and landmarks</p>
+  </header>
+
+  <div class="section-container side-by-side">
+    <!-- Locations List -->
+    <div class="left-panel">
+      <div id="locations-list" class="locations-list">
+        <div class="loading">Loading locations...</div>
+      </div>
+    </div>
+
+    <!-- Location Detail / Map -->
+    <div class="right-panel">
+      <div id="location-detail" class="location-detail">
+        <div class="placeholder">Select a location to see details</div>
+      </div>
+    </div>
+  </div>
+</div>`;
+
+  container.innerHTML = html;
+
+  // Load locations
+  try {
+    const result = await apiService.getLocations();
+    if (result.success && result.data) {
+      const locations = Array.isArray(result.data.data) ? result.data.data : result.data;
+      displayLocationsList(locations || []);
+    }
+  } catch (err) {
+    document.getElementById('locations-list').innerHTML = UI.renderError(err.message);
+  }
+}
+
+function displayLocationsList(locations) {
+  const html = locations.map(loc => `
+    <div class="location-item" onclick="showLocationDetail('${loc.id}', ${JSON.stringify(loc).replace(/"/g, '&quot;')})">
+      <h3>${UI.escapeHtml(loc.name || 'Unknown')}</h3>
+      ${loc.description ? `<p>${UI.truncate(UI.escapeHtml(loc.description), 80)}</p>` : ''}
+      ${loc.latitude && loc.longitude ? `<p class="coords">📍 ${loc.latitude.toFixed(4)}, ${loc.longitude.toFixed(4)}</p>` : ''}
+    </div>
+  `).join('');
+
+  document.getElementById('locations-list').innerHTML = html || UI.renderEmpty('No locations found');
+}
+
+async function showLocationDetail(locationId, location) {
+  const detailEl = document.getElementById('location-detail');
+  detailEl.innerHTML = '<div class="loading">Loading...</div>';
+
+  try {
+    const result = await apiService.getLocations(locationId);
+    const loc = result.success && result.data ? result.data : location;
+
+    let html = `
+      <div class="detail-header">
+        <h2>${UI.escapeHtml(loc.name || 'Unknown Location')}</h2>
+      </div>
+      <div class="detail-content">
+    `;
+
+    if (loc.description) {
+      html += `<p>${UI.escapeHtml(loc.description)}</p>`;
+    }
+
+    if (loc.latitude && loc.longitude) {
+      html += `
+        <div class="location-coords">
+          <strong>Coordinates:</strong><br>
+          Latitude: ${loc.latitude.toFixed(6)}<br>
+          Longitude: ${loc.longitude.toFixed(6)}
+        </div>
+      `;
+    }
+
+    html += `</div>`;
+    detailEl.innerHTML = html;
+
+    // Load related events
+    const eventsResult = await apiService.getEvents({ locationId: locationId, limit: 20 });
+    if (eventsResult.success && eventsResult.data) {
+      const events = Array.isArray(eventsResult.data.data) ? eventsResult.data.data : eventsResult.data.events || [];
+      if (events.length > 0) {
+        let eventsHtml = '<h3>Related Events</h3><div class="events-list">';
+        events.slice(0, 10).forEach(evt => {
+          eventsHtml += `<div class="event-item">${UI.escapeHtml(evt.description || evt.title || 'Event')}</div>`;
+        });
+        eventsHtml += '</div>';
+        detailEl.innerHTML += eventsHtml;
+      }
+    }
+  } catch (err) {
+    detailEl.innerHTML = UI.renderError(err.message);
+  }
+}
+
+// Register route
+window.router.register('locations', renderLocations);
+</script>

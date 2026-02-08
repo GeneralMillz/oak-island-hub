@@ -38,6 +38,7 @@ import logging
 import argparse
 from typing import Optional, Dict, List, Any, Tuple
 from urllib.parse import quote_plus
+import threading
 
 # ============================================================================
 # CONFIGURATION
@@ -60,14 +61,14 @@ app = Flask(__name__, static_folder=str(APP_DIR), static_url_path="")
 # DATABASE MANAGER
 # ============================================================================
 
-class SemanticDB:
     """Manages connections to semantic SQLite database with fallback to JSON."""
-    
+
     def __init__(self, db_path: Path):
         self.db_path = db_path
         self.available = False
         self.json_cache = {}
-        
+        self._cache_lock = threading.Lock()
+
         # Check if database exists
         if db_path.exists():
             try:
@@ -77,7 +78,7 @@ class SemanticDB:
                 cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table'")
                 table_count = cursor.fetchone()[0]
                 conn.close()
-                
+
                 if table_count > 0:
                     self.available = True
                     logger.info(f"✓ Semantic database available: {db_path}")
@@ -128,21 +129,22 @@ db = SemanticDB(DB_PATH)
 # JSON FALLBACK HELPERS
 # ============================================================================
 
-def load_json_slice(filename: str) -> Any:
-    """Load optimized JSON slice with caching."""
+    """Load optimized JSON slice with caching (thread-safe)."""
     cache_key = f"slice_{filename}"
-    if cache_key in db.json_cache:
-        return db.json_cache[cache_key]
-    
+    with db._cache_lock:
+        if cache_key in db.json_cache:
+            return db.json_cache[cache_key]
+
     path = DATA_DIR / f"{filename}_summary.json"
     if not path.exists():
         # Try alternate names
         path = DATA_DIR / f"{filename}.json"
-    
+
     try:
         with path.open("r", encoding="utf-8") as f:
             data = json.load(f)
-        db.json_cache[cache_key] = data
+        with db._cache_lock:
+            db.json_cache[cache_key] = data
         return data
     except Exception as e:
         logger.warning(f"Failed to load {filename}: {e}")
@@ -152,12 +154,20 @@ def load_json_slice(filename: str) -> Any:
 # CORS MIDDLEWARE
 # ============================================================================
 
+# CORS is enabled for all origins by default for public API/browser access.
+# If you need to restrict CORS in production, set allowed_origins accordingly.
+ALLOWED_ORIGINS = None  # Set to a list of allowed origins to restrict
+
 @app.before_request
 def handle_preflight():
-    """Handle CORS preflight requests."""
+    """Handle CORS preflight requests (OPTIONS)."""
     if request.method == "OPTIONS":
+        origin = request.headers.get("Origin", "*")
+        # If ALLOWED_ORIGINS is set, restrict CORS
+        if ALLOWED_ORIGINS is not None and origin not in ALLOWED_ORIGINS:
+            origin = "null"
         response = make_response("", 204)
-        response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin", "*"))
+        response.headers.add("Access-Control-Allow-Origin", origin)
         response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
         response.headers.add("Access-Control-Allow-Methods", "GET, OPTIONS")
         response.headers.add("Access-Control-Max-Age", "3600")
@@ -166,7 +176,11 @@ def handle_preflight():
 @app.after_request
 def add_cors_headers(response):
     """Add CORS headers to all responses."""
-    response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin", "*"))
+    origin = request.headers.get("Origin", "*")
+    # If ALLOWED_ORIGINS is set, restrict CORS
+    if ALLOWED_ORIGINS is not None and origin not in ALLOWED_ORIGINS:
+        origin = "null"
+    response.headers.add("Access-Control-Allow-Origin", origin)
     response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET, OPTIONS")
     response.headers.add("Vary", "Origin")
@@ -732,20 +746,48 @@ def serve_static(path):
     
     return jsonify({'error': 'Not found'}), 404
 
+
+
 # ============================================================================
 # ERROR HANDLERS
 # ============================================================================
 
+
+# --------------------------------------------------------------------------
+# ERROR HANDLERS
+# --------------------------------------------------------------------------
+
 @app.errorhandler(404)
 def not_found(error):
-    """Handle 404 errors."""
-    return jsonify({'error': 'Not found'}), 404
+    """Handle 404 errors with structured logging and JSON."""
+    logger.warning({
+        'event': 'http_404',
+        'path': request.path,
+        'method': request.method,
+        'remote_addr': request.remote_addr,
+        'error': str(error)
+    })
+    return jsonify({
+        'error': 'Not found',
+        'status': 404,
+        'path': request.path
+    }), 404
 
 @app.errorhandler(500)
 def internal_error(error):
-    """Handle 500 errors."""
-    logger.error(f"Internal error: {error}")
-    return jsonify({'error': 'Internal server error'}), 500
+    """Handle 500 errors with structured logging and JSON."""
+    logger.error({
+        'event': 'http_500',
+        'path': request.path,
+        'method': request.method,
+        'remote_addr': request.remote_addr,
+        'error': str(error)
+    })
+    return jsonify({
+        'error': 'Internal server error',
+        'status': 500,
+        'path': request.path
+    }), 500
 
 # ============================================================================
 # APPLICATION ENTRY POINT
@@ -783,3 +825,46 @@ if __name__ == '__main__':
         debug=args.dev,
         use_reloader=args.dev
     )
+# api_server_v2.py
+
+
+from flask import Flask, request, jsonify
+from oak_chat.engine import answer_query
+import logging
+
+app = Flask(__name__)
+
+# Use the root logger for consistency with the rest of the file
+logger = logging.getLogger(__name__)
+
+@app.post("/chat")
+def chat():
+    try:
+        logger.info("Received /chat request from %s", request.remote_addr)
+        try:
+            data = request.get_json(force=True) or {}
+        except Exception as e:
+            logger.warning("Invalid JSON in /chat request: %s", e)
+            return jsonify({"error": "Invalid JSON"}), 400
+
+        user_query = data.get("query", "").strip()
+        if not user_query:
+            logger.info("/chat request missing 'query' field")
+            return jsonify({"error": "Missing 'query'"}), 400
+
+        try:
+            result = answer_query(user_query)
+        except Exception as exc:
+            logger.exception("Error in answer_query for /chat: %s", exc)
+            return jsonify({"error": "Internal server error"}), 500
+
+        return jsonify({
+            "answer": result.get("answer"),
+            "route": result.get("route"),
+        })
+    except Exception as exc:
+        logger.exception("Unexpected error in /chat endpoint: %s", exc)
+        return jsonify({"error": "Internal server error"}), 500
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000, debug=True)

@@ -1,0 +1,113 @@
+<!-- Episodes Explorer Section -->
+<div class="section-episodes">
+  <header class="section-header">
+    <h1>Episodes</h1>
+    <p>Browse episodes from all seasons</p>
+  </header>
+
+  <div class="section-container">
+    <!-- Season Filter -->
+    <div id="filter-container" class="filter-bar">
+      <label>Season:</label>
+      <select id="season-select" class="filter-select">
+        <option value="">All Seasons</option>
+      </select>
+    </div>
+
+    <!-- Episodes List -->
+    <div id="episodes-list" class="episodes-list loading-placeholder">
+      <div class="loading">Loading episodes...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/**
+ * Episodes page renderer
+ */
+async function renderEpisodes(container) {
+  const html = `<!-- Episodes Explorer Section -->
+<div class="section-episodes">
+  <header class="section-header">
+    <h1>Episodes</h1>
+    <p>Browse episodes from all seasons</p>
+  </header>
+
+  <div class="section-container">
+    <!-- Season Filter -->
+    <div id="filter-container" class="filter-bar">
+      <label>Season:</label>
+      <select id="season-select" class="filter-select">
+        <option value="">All Seasons</option>
+      </select>
+    </div>
+
+    <!-- Episodes List -->
+    <div id="episodes-list" class="episodes-list">
+      <div class="loading">Loading episodes...</div>
+    </div>
+  </div>
+</div>`;
+
+  container.innerHTML = html;
+
+  // Load episodes
+  try {
+    const result = await apiService.getEpisodes();
+    if (result.success && result.data) {
+      const episodes = Array.isArray(result.data.data) ? result.data.data : result.data;
+      
+      // Get unique seasons
+      const seasons = [...new Set((episodes || []).map(e => e.season))].sort((a, b) => a - b);
+      
+      // Populate season filter
+      const seasonSelect = document.getElementById('season-select');
+      seasons.forEach(season => {
+        const opt = document.createElement('option');
+        opt.value = season;
+        opt.textContent = `Season ${season}`;
+        seasonSelect.appendChild(opt);
+      });
+
+      // Load and display all episodes
+      displayEpisodes(episodes || []);
+
+      // Season filter handler
+      seasonSelect.addEventListener('change', (e) => {
+        const season = e.target.value;
+        if (season) {
+          const filtered = episodes.filter(ep => ep.season == season);
+          displayEpisodes(filtered);
+        } else {
+          displayEpisodes(episodes);
+        }
+      });
+    }
+  } catch (err) {
+    document.getElementById('episodes-list').innerHTML = UI.renderError(err.message);
+  }
+}
+
+function displayEpisodes(episodes) {
+  const html = episodes.map(ep => `
+    <div class="episode-item" onclick="showEpisodeDetail(${ep.id || 0})">
+      <div class="episode-header">
+        <h3>S${ep.season}E${ep.episode}</h3>
+        <span class="episode-title">${UI.escapeHtml(ep.title || 'Untitled')}</span>
+      </div>
+      <p class="episode-air-date">${ep.air_date ? UI.formatDate(ep.air_date) : 'Unknown air date'}</p>
+      ${ep.description ? `<p class="episode-description">${UI.truncate(UI.escapeHtml(ep.description), 150)}</p>` : ''}
+    </div>
+  `).join('');
+
+  document.getElementById('episodes-list').innerHTML = html || UI.renderEmpty('No episodes found');
+}
+
+function showEpisodeDetail(episodeId) {
+  // TODO: Show detail panel
+  console.log('Show episode detail:', episodeId);
+}
+
+// Register route
+window.router.register('episodes', renderEpisodes);
+</script>

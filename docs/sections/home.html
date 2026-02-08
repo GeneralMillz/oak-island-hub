@@ -1,0 +1,156 @@
+<!-- Home / Overview Section -->
+<div class="section-home">
+  <header class="section-header">
+    <h1>Oak Island Research Center</h1>
+    <p>Explore discoveries, theories, and evidence from the legendary island.</p>
+  </header>
+
+  <!-- Status Cards -->
+  <div id="status-container" class="status-container">
+    <div class="loading-placeholder">Loading...</div>
+  </div>
+
+  <!-- Quick Links -->
+  <section class="quick-links">
+    <h2>Explore</h2>
+    <div class="quick-link-grid">
+      <a href="#/episodes" class="quick-link-card">
+        <div class="link-icon">📺</div>
+        <h3>Episodes</h3>
+        <p>Browse and search episodes</p>
+      </a>
+      <a href="#/locations" class="quick-link-card">
+        <div class="link-icon">📍</div>
+        <h3>Locations</h3>
+        <p>Explore dig sites on the map</p>
+      </a>
+      <a href="#/events" class="quick-link-card">
+        <div class="link-icon">📅</div>
+        <h3>Events</h3>
+        <p>Timeline of discoveries</p>
+      </a>
+      <a href="#/artifacts" class="quick-link-card">
+        <div class="link-icon">🏺</div>
+        <h3>Artifacts</h3>
+        <p>Physical evidence found</p>
+      </a>
+      <a href="#/theories" class="quick-link-card">
+        <div class="link-icon">💡</div>
+        <h3>Theories</h3>
+        <p>Research hypotheses</p>
+      </a>
+      <a href="#/people" class="quick-link-card">
+        <div class="link-icon">👥</div>
+        <h3>People</h3>
+        <p>Key investigators</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Recent Activity -->
+  <section class="recent-activity">
+    <h2>Recently Updated</h2>
+    <div id="recent-container" class="recent-list">
+      <div class="loading-placeholder">Loading recent activity...</div>
+    </div>
+  </section>
+</div>
+
+<script>
+/**
+ * Home page renderer
+ */
+async function renderHome(container) {
+  const html = `<!-- Home / Overview Section -->
+<div class="section-home">
+  <header class="section-header">
+    <h1>Oak Island Research Center</h1>
+    <p>Explore discoveries, theories, and evidence from the legendary island.</p>
+  </header>
+
+  <!-- Status Cards -->
+  <div id="status-container" class="status-container">
+    <div class="loading-placeholder">Loading...</div>
+  </div>
+
+  <!-- Quick Links -->
+  <section class="quick-links">
+    <h2>Explore</h2>
+    <div class="quick-link-grid">
+      <a href="#/episodes" class="quick-link-card">
+        <div class="link-icon">📺</div>
+        <h3>Episodes</h3>
+        <p>Browse and search episodes</p>
+      </a>
+      <a href="#/locations" class="quick-link-card">
+        <div class="link-icon">📍</div>
+        <h3>Locations</h3>
+        <p>Explore dig sites on the map</p>
+      </a>
+      <a href="#/events" class="quick-link-card">
+        <div class="link-icon">📅</div>
+        <h3>Events</h3>
+        <p>Timeline of discoveries</p>
+      </a>
+      <a href="#/artifacts" class="quick-link-card">
+        <div class="link-icon">🏺</div>
+        <h3>Artifacts</h3>
+        <p>Physical evidence found</p>
+      </a>
+      <a href="#/theories" class="quick-link-card">
+        <div class="link-icon">💡</div>
+        <h3>Theories</h3>
+        <p>Research hypotheses</p>
+      </a>
+      <a href="#/people" class="quick-link-card">
+        <div class="link-icon">👥</div>
+        <h3>People</h3>
+        <p>Key investigators</p>
+      </a>
+    </div>
+  </section>
+</div>`;
+
+  container.innerHTML = html;
+
+  // Load status
+  try {
+    const result = await apiService.getStatus();
+    if (result.success && result.data) {
+      const stats = result.data.entities || result.data;
+      const statsHtml = `
+        <div class="stat-card">
+          <div class="stat-label">Episodes</div>
+          <div class="stat-value">${stats.episodes || 244}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Locations</div>
+          <div class="stat-value">${stats.locations || 5}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Events</div>
+          <div class="stat-value">${stats.events || 6216}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Theories</div>
+          <div class="stat-value">${stats.theories || 16}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Artifacts</div>
+          <div class="stat-value">${stats.artifacts || 81}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">People</div>
+          <div class="stat-value">${stats.people || 25}</div>
+        </div>
+      `;
+      document.getElementById('status-container').innerHTML = statsHtml;
+    }
+  } catch (err) {
+    console.error('Error loading status:', err);
+  }
+}
+
+// Register route
+window.router.register('home', renderHome);
+</script>

@@ -1,0 +1,135 @@
+<!-- People & Contributors Section -->
+<div class="section-people">
+  <header class="section-header">
+    <h1>People & Contributors</h1>
+    <p>Key investigators and personalities</p>
+  </header>
+
+  <div class="section-container side-by-side">
+    <!-- People List -->
+    <div class="left-panel">
+      <div id="people-list" class="people-list">
+        <div class="loading">Loading people...</div>
+      </div>
+    </div>
+
+    <!-- Person Detail -->
+    <div class="right-panel">
+      <div id="person-detail" class="person-detail">
+        <div class="placeholder">Select a person to see details</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/**
+ * People page renderer
+ */
+async function renderPeople(container) {
+  const html = `<!-- People & Contributors Section -->
+<div class="section-people">
+  <header class="section-header">
+    <h1>People & Contributors</h1>
+    <p>Key investigators and personalities</p>
+  </header>
+
+  <div class="section-container side-by-side">
+    <!-- People List -->
+    <div class="left-panel">
+      <div id="people-list" class="people-list">
+        <div class="loading">Loading people...</div>
+      </div>
+    </div>
+
+    <!-- Person Detail -->
+    <div class="right-panel">
+      <div id="person-detail" class="person-detail">
+        <div class="placeholder">Select a person to see details</div>
+      </div>
+    </div>
+  </div>
+</div>`;
+
+  container.innerHTML = html;
+
+  try {
+    const result = await apiService.getPeople();
+    if (result.success && result.data) {
+      const people = Array.isArray(result.data.data) ? result.data.data : result.data;
+      displayPeopleList(people || []);
+    }
+  } catch (err) {
+    document.getElementById('people-list').innerHTML = UI.renderError(err.message);
+  }
+}
+
+function displayPeopleList(people) {
+  const html = people.map(person => `
+    <div class="person-item" onclick="showPersonDetail('${person.id}')">
+      <div class="person-avatar">${UI.getInitials(person.name || 'Unknown')}</div>
+      <div class="person-info">
+        <h3>${UI.escapeHtml(person.name || 'Unknown')}</h3>
+        ${person.role ? `<p class="person-role">${UI.escapeHtml(person.role)}</p>` : ''}
+        ${person.mention_count ? `<p class="person-mentions">${person.mention_count} mentions</p>` : ''}
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('people-list').innerHTML = html || UI.renderEmpty('No people found');
+}
+
+async function showPersonDetail(personId) {
+  const detailEl = document.getElementById('person-detail');
+  detailEl.innerHTML = '<div class="loading">Loading...</div>';
+
+  try {
+    const result = await apiService.getPeople();
+    const people = Array.isArray(result.data.data) ? result.data.data : result.data;
+    const person = people.find(p => p.id === personId);
+
+    if (!person) {
+      detailEl.innerHTML = UI.renderError('Person not found');
+      return;
+    }
+
+    let html = `
+      <div class="detail-header">
+        <div class="person-avatar-large">${UI.getInitials(person.name || 'Unknown')}</div>
+        <h2>${UI.escapeHtml(person.name || 'Unknown')}</h2>
+        ${person.role ? `<p class="person-role">${UI.escapeHtml(person.role)}</p>` : ''}
+      </div>
+      <div class="detail-content">
+    `;
+
+    if (person.description) {
+      html += `<p>${UI.escapeHtml(person.description)}</p>`;
+    }
+
+    if (person.mention_count) {
+      html += `<div class="person-stats">
+        <div class="stat">
+          <span class="label">Mentions</span>
+          <span class="value">${person.mention_count}</span>
+        </div>
+      </div>`;
+    }
+
+    if (person.first_appearance_season || person.last_appearance_season) {
+      html += `<div class="person-seasons">
+        <strong>Appearances:</strong><br/>
+        ${person.first_appearance_season ? `First: Season ${person.first_appearance_season}<br/>` : ''}
+        ${person.last_appearance_season ? `Last: Season ${person.last_appearance_season}` : ''}
+      </div>`;
+    }
+
+    html += '</div>';
+    detailEl.innerHTML = html;
+  } catch (err) {
+    detailEl.innerHTML = UI.renderError(err.message);
+  }
+}
+
+// Register route
+window.router.register('people', renderPeople);
+</script>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Oak Island Research Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- External Libraries -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></link>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Navigation Bar -->
+    <nav id="top-nav" class="research-nav">
+      <div class="nav-brand">🏝️ Oak Island Research Center</div>
+      <div class="nav-tabs">
+        <button class="nav-tab" data-route="home" data-label="Home">🏠 Home</button>
+        <button class="nav-tab" data-route="episodes" data-label="Episodes">📺 Episodes</button>
+        <button class="nav-tab" data-route="locations" data-label="Locations">📍 Locations</button>
+        <button class="nav-tab" data-route="events" data-label="Events">📅 Events</button>
+        <button class="nav-tab" data-route="artifacts" data-label="Artifacts">🏺 Artifacts</button>
+        <button class="nav-tab" data-route="theories" data-label="Theories">💡 Theories</button>
+        <button class="nav-tab" data-route="people" data-label="People">👥 People</button>
+        <button class="nav-tab" data-route="chatbot" data-label="Chat">🤖 Chat</button>
+      </div>
+    </nav>
+
+    <!-- Content Container -->
+    <main id="content" class="research-content">
+      <div class="loading">Loading application...</div>
+    </main>
+  </div>
+
+  <!-- Scripts (Load in order) -->
+  <!-- Utility and State Modules -->
+  <script src="js/utils.js"></script>
+  <script src="js/state.js"></script>
+  
+  <!-- New API and UI Services -->
+  <script src="js/api_service.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/ui.js"></script>
+
+  <!-- Section Loaders -->
+  <script src="sections/home.html" onload="fetch('sections/home.html').then(r => r.text()).then(t => { const s = document.createElement('script'); s.textContent = t.match(/<script>[\s\S]*<\/script>/)[0].slice(8, -9); document.body.appendChild(s); })"></script>
+  <script src="sections/episodes.html" onload="fetch('sections/episodes.html').then(r => r.text()).then(t => { const s = document.createElement('script'); s.textContent = t.match(/<script>[\s\S]*<\/script>/)[0].slice(8, -9); document.body.appendChild(s); })"></script>
+  <script src="sections/locations.html" onload="fetch('sections/locations.html').then(r => r.text()).then(t => { const s = document.createElement('script'); s.textContent = t.match(/<script>[\s\S]*<\/script>/)[0].slice(8, -9); document.body.appendChild(s); })"></script>
+  <script src="sections/events.html" onload="fetch('sections/events.html').then(r => r.text()).then(t => { const s = document.createElement('script'); s.textContent = t.match(/<script>[\s\S]*<\/script>/)[0].slice(8, -9); document.body.appendChild(s); })"></script>
+  <script src="sections/artifacts.html" onload="fetch('sections/artifacts.html').then(r => r.text()).then(t => { const s = document.createElement('script'); s.textContent = t.match(/<script>[\s\S]*<\/script>/)[0].slice(8, -9); document.body.appendChild(s); })"></script>
+  <script src="sections/theories.html" onload="fetch('sections/theories.html').then(r => r.text()).then(t => { const s = document.createElement('script'); s.textContent = t.match(/<script>[\s\S]*<\/script>/)[0].slice(8, -9); document.body.appendChild(s); })"></script>
+  <script src="sections/people.html" onload="fetch('sections/people.html').then(r => r.text()).then(t => { const s = document.createElement('script'); s.textContent = t.match(/<script>[\s\S]*<\/script>/)[0].slice(8, -9); document.body.appendChild(s); })"></script>
+
+  <!-- Chatbot (Keep existing) -->
+  <script src="js/chatbot.js"></script>
+
+  <!-- Maps (Optional) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Application Bootstrap -->
+  <script src="js/app.js"></script>
+</body>
+</html>
